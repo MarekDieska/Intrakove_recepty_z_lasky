@@ -186,7 +186,7 @@
                     android:id="@+id/button5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/baklava"
+                    android:src="@drawable/muffiny"
                     android:scaleType="centerCrop"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/prvok_menu"
