@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Dvojplatnicka</string>
+    <string name="app_name">Dvojplatnička</string>
+    <string name="placky">1\nZemiaky očistíme, nastrúhame. Zmiešame s múkou, celým vajcom a roztlačeným cesnakom. Vzniknuté cesto osolíme a okoreníme.\n\n2\nPlacky robíme ako palacinky (t.j. na panvici a oleji robíme tvary aké chceme v dostatočnej hrúbke), buď dávame viac kúskov na jeden krát - bude ich viac menších, alebo po jednej, čiže budú väčšie.\n\n3\nMôžeme ich jesť s kyslou smotanou alebo zakysankou, prípadne niečím podobným.\n</string>
+    <string name="thai_polievka">1\nV hrnci rozpálime olej. Pridáme nastrúhaný zázvor, nasekanú citrónovú trávu, kari a čili pastu. Za stáleho miešania prilejeme horúci kurací vývar, trstinový cukor a polievku varíme približne 15 minút.\n\n2\nDo menšieho hrnca nalejeme kokosové mlieko. Doň vložíme huby šitake nakrájané na plátky, za občasného miešania varíme domäkka približne 5 minút.\n\n3\nPredvarené huby s mliekom vlejeme do hrnca s vývarom. Pridáme na kocky nakrájané kuracie prsia a varíme ďalších 7 minút. Dochutíme soľou, korením a limetovou šťavou. Pred podávaním polievku ozdobíme čili papričkou.\n\n4\nTIP: Ak máme radi štipľavé môžeme čili papričku nakrájať a zjesť.\n</string>
+    <string name="placky_button">Zem. placky</string>
 </resources>
