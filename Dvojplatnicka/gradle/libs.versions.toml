@@ -1,20 +1,42 @@
 [versions]
 agp = "8.5.0"
+androidxJunit = "1.2.1"
+appcompatVersion = "1.7.0"
+coreKtxVersion = "1.13.1"
+espressoCoreVersion = "3.6.1"
+exoplayer = "2.19.1"
+exoplayerVersion = "2.19.0"
+gradle = "8.0.2"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
+kotlinGradlePlugin = "1.8.0"
 material = "1.10.0"
+materialVersion = "1.9.0"
+uiTestAndroid = "1.6.8"
+uiTestDesktop = "1.6.8"
 
 [libraries]
+androidx-appcompat-v170 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v1131 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+androidx-espresso-core-v361 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
+androidx-junit-v121 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+exoplayer-v2190 = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayerVersion" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "uiTestAndroid" }
+androidx-ui-test-desktop = { group = "androidx.compose.ui", name = "ui-test-desktop", version.ref = "uiTestDesktop" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
