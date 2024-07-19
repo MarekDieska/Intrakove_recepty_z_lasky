@@ -55,10 +55,10 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:columnCount="3"
                 android:rowCount="3"
                 app:layout_constraintTop_toBottomOf="@id/startText">
@@ -86,7 +86,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -124,7 +124,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -161,7 +161,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -198,7 +198,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -235,7 +235,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -272,7 +272,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -309,7 +309,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -346,7 +346,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
@@ -384,7 +384,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/white"
                         android:alpha="0.5"/>
 
                     <TextView
