@@ -25,7 +25,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final int LOOP_LIMIT = 5;
 
     private Button buttonBack;
     private FrameLayout[] frameLayouts;
@@ -91,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.lievance),
                 findViewById(R.id.chilli_con_carne),
                 findViewById(R.id.muffiny),
-                findViewById(R.id.baklava)
+                findViewById(R.id.baklava),
+                findViewById(R.id.hamburger),
+                findViewById(R.id.carbonara),
+                findViewById(R.id.shakshuka)
         };
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
@@ -107,16 +109,20 @@ public class MainActivity extends AppCompatActivity {
         buttonTextMap.put(R.id.button4, getString(R.string.chilli_con_carne));
         buttonTextMap.put(R.id.button5, getString(R.string.muffiny));
         buttonTextMap.put(R.id.button6, getString(R.string.baklava));
+        buttonTextMap.put(R.id.button7, getString(R.string.hamburger));
+        buttonTextMap.put(R.id.button8, getString(R.string.carbonara));
+        buttonTextMap.put(R.id.button9, getString(R.string.shakshuka));
     }
 
     private void handleLoopEnd() {
-        loopCount = 0; // Reset loop count on every playback end
+        loopCount++;
+        if (loopCount >= 4) {
+            loopCount = 0;
+            currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
+        }
 
-        // Move to the next media item
-        currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
         player.setMediaItem(mediaItems.get(currentMediaIndex));
 
-        // Prepare the player and start playback once ready
         player.prepare();
     }
 
