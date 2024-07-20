@@ -4,11 +4,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ExoPlayer player;
     private List<MediaItem> mediaItems;
     private int currentMediaIndex = 0;
-    private int loopCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.tortilla_placky),
                 findViewById(R.id.gyros)
         };
+
+        // Apply rounded corners to each FrameLayout
+        for (FrameLayout frameLayout : frameLayouts) {
+            frameLayout.setBackgroundResource(R.drawable.rounded_corners);
+        }
+
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
 
@@ -136,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleLoopEnd() {
         currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
-
         player.setMediaItem(mediaItems.get(currentMediaIndex));
-
         player.prepare();
     }
 

@@ -33,7 +33,7 @@
                 android:text="Menu:\n"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -70,7 +70,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button1"
@@ -86,14 +87,15 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"
+                        tools:context=".MainActivity"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Zem. placky"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -108,7 +110,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button2"
@@ -124,14 +127,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thajská polievka"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -144,7 +147,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button3"
@@ -160,14 +164,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lievance"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -180,7 +184,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button4"
@@ -196,14 +201,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Chilli con carne"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -216,7 +221,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button5"
@@ -232,14 +238,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Muffiny"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -252,7 +258,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button6"
@@ -268,14 +275,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Baklava"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -288,7 +295,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button7"
@@ -304,14 +312,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hamburger"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -324,7 +332,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button8"
@@ -340,14 +349,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Carbonara"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -361,7 +370,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button9"
@@ -377,14 +387,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shakshuka"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -398,7 +408,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button10"
@@ -414,14 +425,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Butter chicken"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -435,7 +446,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button11"
@@ -451,14 +463,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Placky Naan"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -472,7 +484,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button12"
@@ -488,14 +501,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Palacinky"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -509,7 +522,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button13"
@@ -525,14 +539,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pizza"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -546,7 +560,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button14"
@@ -562,14 +577,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Zapekanky"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -583,7 +598,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button15"
@@ -599,14 +615,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ázijské crispy kura"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -620,7 +636,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button16"
@@ -636,14 +653,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Teriyaki kura"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -657,7 +674,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button17"
@@ -673,14 +691,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tortilla placky"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -693,7 +711,8 @@
                     android:layout_height="100dp"
                     android:layout_columnSpan="1"
                     android:layout_rowSpan="1"
-                    android:layout_margin="8dp">
+                    android:layout_margin="8dp"
+                    tools:context=".MainActivity">
 
                     <ImageButton
                         android:id="@+id/button18"
@@ -709,14 +728,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:alpha="0.5"/>
+                        android:background="@android:color/black"
+                        android:alpha="0.4"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gyros"
-                        android:textColor="@color/dark_purple"
+                        android:textColor="@color/purple_200"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -734,6 +753,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Späť"
+        android:textSize="18dp"
         android:visibility="gone"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
