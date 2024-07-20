@@ -100,6 +100,7 @@
                         android:layout_gravity="center"/>
                 </FrameLayout>
 
+
                 <!-- Repeat for other buttons, ensuring correct id, text, and drawable -->
                 <FrameLayout
                     android:id="@+id/thai_polievka"
@@ -531,6 +532,190 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pizza"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/zapekanky"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button14"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/zapekanky"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zapekanky"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/crispy_chicken"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button15"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/crispy_chicken"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ázijské crispy kura"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/teriyaki"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/teriyaki"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teriyaki kura"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/tortilla_placky"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button17"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/tortilla_placky"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tortilla placky"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/gyros"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button18"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/gyros"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gyros"
                         android:textColor="@color/dark_purple"
                         android:textSize="18sp"
                         android:textStyle="bold"

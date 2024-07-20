@@ -99,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.butter_chicken),
                 findViewById(R.id.placky_naan),
                 findViewById(R.id.palacinky),
-                findViewById(R.id.pizza)
+                findViewById(R.id.pizza),
+                findViewById(R.id.zapekanky),
+                findViewById(R.id.crispy_chicken),
+                findViewById(R.id.teriyaki),
+                findViewById(R.id.tortilla_placky),
+                findViewById(R.id.gyros)
         };
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
@@ -122,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
         buttonTextMap.put(R.id.button11, getString(R.string.placky_naan));
         buttonTextMap.put(R.id.button12, getString(R.string.palacinky));
         buttonTextMap.put(R.id.button13, getString(R.string.pizza));
+        buttonTextMap.put(R.id.button14, getString(R.string.zapekanky));
+        buttonTextMap.put(R.id.button15, getString(R.string.crispy_chicken));
+        buttonTextMap.put(R.id.button16, getString(R.string.teriyaki));
+        buttonTextMap.put(R.id.button17, getString(R.string.tortilla_placky));
+        buttonTextMap.put(R.id.button18, getString(R.string.gyros));
     }
 
     private void handleLoopEnd() {
