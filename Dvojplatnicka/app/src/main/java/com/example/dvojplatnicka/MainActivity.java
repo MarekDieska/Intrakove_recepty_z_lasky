@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         mediaItems = new ArrayList<>();
         mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.viki_hudba)));
         mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marek_hudba)));
+        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.emka_hudba)));
+        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marek_hudba2)));
 
         // Set initial media item
         player.setMediaItem(mediaItems.get(currentMediaIndex));
@@ -115,11 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleLoopEnd() {
-        loopCount++;
-        if (loopCount >= 4) {
-            loopCount = 0;
-            currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
-        }
+        currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
 
         player.setMediaItem(mediaItems.get(currentMediaIndex));
 
