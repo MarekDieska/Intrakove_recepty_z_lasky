@@ -90,7 +90,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Zem. placky"
@@ -128,7 +127,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thajská polievka"
@@ -165,7 +163,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lievance"
@@ -202,7 +199,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Chilli con carne"
@@ -239,7 +235,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Muffiny"
@@ -276,7 +271,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Baklava"
@@ -313,7 +307,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hamburger"
@@ -350,7 +343,6 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Carbonara"
@@ -388,10 +380,157 @@
                         android:alpha="0.5"/>
 
                     <TextView
-                        android:id="@+id/textOverlay9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shakshuka"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/butter_chicken"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/butter_chicken"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Butter chicken"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/placky_naan"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/placky_naan"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Placky Naan"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/palacinky"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/palacinky"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Palacinky"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/pizza"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="1"
+                    android:layout_margin="8dp">
+
+                    <ImageButton
+                        android:id="@+id/button13"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pizza"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/prvok_menu"
+                        android:onClick="handleButtonClick"/>
+
+                    <!-- White overlay with 50% opacity -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:alpha="0.5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pizza"
                         android:textColor="@color/dark_purple"
                         android:textSize="18sp"
                         android:textStyle="bold"
