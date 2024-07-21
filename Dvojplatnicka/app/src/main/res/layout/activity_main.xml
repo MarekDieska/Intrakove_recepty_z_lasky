@@ -53,7 +53,56 @@
 
             <!-- Button Grid Layout -->
             <GridLayout
-                android:layout_width="match_parent"
+                android:id="@+id/categoryGrid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/startText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <Button
+                    android:id="@+id/predjedla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍜"
+                    android:textSize="32sp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="36dp"
+                    android:textColor="@android:color/white"
+                    android:onClick="handleCategoryButtonClick"/>
+
+                <Button
+                    android:id="@+id/hlavne_jedla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍝"
+                    android:textSize="32sp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@android:color/white"
+                    android:onClick="handleCategoryButtonClick"/>
+
+                <Button
+                    android:id="@+id/dezerty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍰"
+                    android:textSize="32sp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@android:color/white"
+                    android:onClick="handleCategoryButtonClick"/>
+
+            </GridLayout>
+
+
+
+            <GridLayout
+                android:id="@+id/grid_layout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -61,17 +110,14 @@
                 android:layout_marginRight="4dp"
                 android:columnCount="3"
                 android:rowCount="3"
-                app:layout_constraintTop_toBottomOf="@id/startText">
+                app:layout_constraintTop_toBottomOf="@id/categoryGrid"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <!-- Define FrameLayouts for each button -->
                 <FrameLayout
                     android:id="@+id/placky"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button1"
@@ -88,8 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/black"
-                        android:alpha="0.4"
-                        tools:context=".MainActivity"/>
+                        android:alpha="0.4" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,12 +151,7 @@
                 <!-- Repeat for other buttons, ensuring correct id, text, and drawable -->
                 <FrameLayout
                     android:id="@+id/thai_polievka"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button2"
@@ -143,12 +183,7 @@
 
                 <FrameLayout
                     android:id="@+id/lievance"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button3"
@@ -180,12 +215,7 @@
 
                 <FrameLayout
                     android:id="@+id/chilli_con_carne"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button4"
@@ -217,12 +247,7 @@
 
                 <FrameLayout
                     android:id="@+id/muffiny"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button5"
@@ -254,12 +279,7 @@
 
                 <FrameLayout
                     android:id="@+id/baklava"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button6"
@@ -291,12 +311,7 @@
 
                 <FrameLayout
                     android:id="@+id/hamburger"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button7"
@@ -328,12 +343,7 @@
 
                 <FrameLayout
                     android:id="@+id/carbonara"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button8"
@@ -366,12 +376,7 @@
 
                 <FrameLayout
                     android:id="@+id/shakshuka"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button9"
@@ -404,12 +409,7 @@
 
                 <FrameLayout
                     android:id="@+id/butter_chicken"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button10"
@@ -442,12 +442,7 @@
 
                 <FrameLayout
                     android:id="@+id/placky_naan"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button11"
@@ -480,12 +475,7 @@
 
                 <FrameLayout
                     android:id="@+id/palacinky"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button12"
@@ -518,12 +508,7 @@
 
                 <FrameLayout
                     android:id="@+id/pizza"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button13"
@@ -556,12 +541,7 @@
 
                 <FrameLayout
                     android:id="@+id/zapekanky"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button14"
@@ -594,12 +574,7 @@
 
                 <FrameLayout
                     android:id="@+id/crispy_chicken"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button15"
@@ -632,12 +607,7 @@
 
                 <FrameLayout
                     android:id="@+id/teriyaki"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button16"
@@ -670,12 +640,7 @@
 
                 <FrameLayout
                     android:id="@+id/tortilla_placky"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button17"
@@ -707,12 +672,7 @@
 
                 <FrameLayout
                     android:id="@+id/gyros"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="1"
-                    android:layout_margin="8dp"
-                    tools:context=".MainActivity">
+                    style="@style/MenuItemButton">
 
                     <ImageButton
                         android:id="@+id/button18"

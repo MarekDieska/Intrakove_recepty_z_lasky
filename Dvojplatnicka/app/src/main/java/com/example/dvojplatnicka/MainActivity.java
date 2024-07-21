@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button buttonBack;
+    private Button buttonBack, mainDishButton, appetizerButton, dessertButton;
     private FrameLayout[] frameLayouts;
     private TextView textView;
     private SparseArray<String> buttonTextMap;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        // Initialize the FrameLayouts and Button
+        // Initialize the FrameLayouts and assign tags
         frameLayouts = new FrameLayout[]{
                 findViewById(R.id.placky),
                 findViewById(R.id.thai_polievka),
@@ -106,10 +106,25 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.gyros)
         };
 
-        // Apply rounded corners to each FrameLayout
-        for (FrameLayout frameLayout : frameLayouts) {
-            frameLayout.setBackgroundResource(R.drawable.rounded_corners);
-        }
+        // Assign tags
+        findViewById(R.id.placky).setTag("appetizer");
+        findViewById(R.id.thai_polievka).setTag("appetizer");
+        findViewById(R.id.lievance).setTag("dessert");
+        findViewById(R.id.chilli_con_carne).setTag("mainDish");
+        findViewById(R.id.muffiny).setTag("dessert");
+        findViewById(R.id.baklava).setTag("dessert");
+        findViewById(R.id.hamburger).setTag("mainDish");
+        findViewById(R.id.carbonara).setTag("mainDish");
+        findViewById(R.id.shakshuka).setTag("appetizer");
+        findViewById(R.id.butter_chicken).setTag("mainDish");
+        findViewById(R.id.placky_naan).setTag("appetizer");
+        findViewById(R.id.palacinky).setTag("dessert");
+        findViewById(R.id.pizza).setTag("mainDish");
+        findViewById(R.id.zapekanky).setTag("appetizer");
+        findViewById(R.id.crispy_chicken).setTag("mainDish");
+        findViewById(R.id.teriyaki).setTag("mainDish");
+        findViewById(R.id.tortilla_placky).setTag("appetizer");
+        findViewById(R.id.gyros).setTag("mainDish");
 
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
@@ -137,6 +152,17 @@ public class MainActivity extends AppCompatActivity {
         buttonTextMap.put(R.id.button16, getString(R.string.teriyaki));
         buttonTextMap.put(R.id.button17, getString(R.string.tortilla_placky));
         buttonTextMap.put(R.id.button18, getString(R.string.gyros));
+
+        // Set button click listeners
+        findViewById(R.id.hlavne_jedla).setOnClickListener(v -> handleCategoryButtonClick("mainDish", buttonBack, textView, buttonTextMap, v));
+        findViewById(R.id.predjedla).setOnClickListener(v -> handleCategoryButtonClick("appetizer", buttonBack, textView, buttonTextMap, v));
+        findViewById(R.id.dezerty).setOnClickListener(v -> handleCategoryButtonClick("dessert", buttonBack, textView, buttonTextMap, v));
+        // Add listeners for other buttons...
+        mainDishButton = findViewById(R.id.hlavne_jedla);
+        appetizerButton = findViewById(R.id.predjedla);
+        dessertButton = findViewById(R.id.dezerty);
+
+        buttonBack.setOnClickListener(this::handleBackButtonClick);
     }
 
     private void handleLoopEnd() {
@@ -170,6 +196,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void handleCategoryButtonClick(String categoryTag, Button buttonBack, TextView textView, SparseArray<String> buttonTextMap, View view) {
+        // Hide all FrameLayouts
+        for (FrameLayout frameLayout : frameLayouts) {
+            frameLayout.setVisibility(View.GONE);
+        }
+
+        // Show FrameLayouts with the specified tag
+        for (FrameLayout frameLayout : frameLayouts) {
+            if (categoryTag.equals(frameLayout.getTag())) {
+                frameLayout.setVisibility(View.VISIBLE);
+            }
+        }
+
+        // Show the "Späť" button
+        buttonBack.setVisibility(View.VISIBLE);
+
+        String buttonText = buttonTextMap.get(view.getId());
+        if (buttonText != null) {
+            textView.setText(buttonText);
+        }
+    }
+
     public void handleButtonClick(View view) {
         // Hide all FrameLayouts
         for (FrameLayout frameLayout : frameLayouts) {
@@ -183,6 +231,10 @@ public class MainActivity extends AppCompatActivity {
         if (buttonText != null) {
             textView.setText(buttonText);
         }
+
+        mainDishButton.setVisibility(View.GONE);
+        appetizerButton.setVisibility(View.GONE);
+        dessertButton.setVisibility(View.GONE);
     }
 
     public void handleBackButtonClick(View view) {
@@ -195,8 +247,10 @@ public class MainActivity extends AppCompatActivity {
         buttonBack.setVisibility(View.GONE);
 
         // Clear the TextView text
-        if (textView != null) {
-            textView.setText("");
-        }
+        textView.setText("Vyber si na čo máš dneska chuť, ináč povedané, suroviny :)");
+
+        mainDishButton.setVisibility(View.VISIBLE);
+        appetizerButton.setVisibility(View.VISIBLE);
+        dessertButton.setVisibility(View.VISIBLE);
     }
 }
