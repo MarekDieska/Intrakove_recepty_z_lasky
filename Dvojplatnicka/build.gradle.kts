@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(libs.gradle) // Or a compatible version
-        classpath(libs.kotlin.gradle.plugin) // Or a compatible version
+        classpath(libs.gradle)
+        classpath(libs.kotlin.gradle.plugin)
     }
 }

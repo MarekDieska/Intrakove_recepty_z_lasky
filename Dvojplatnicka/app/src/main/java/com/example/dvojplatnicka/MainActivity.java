@@ -2,37 +2,29 @@ package com.example.dvojplatnicka;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.exoplayer2.ExoPlaybackException;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.PlayerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener {
 
     private Button buttonBack, mainDishButton, appetizerButton, dessertButton;
-    private FrameLayout[] frameLayouts;
     private TextView textView;
-    private SparseArray<String> buttonTextMap;
     private ExoPlayer player;
     private List<MediaItem> mediaItems;
     private int currentMediaIndex = 0;
+    private RecyclerView recyclerView;
+    private Adapter adapter;
+    private List<Item> itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize ExoPlayer
         player = new ExoPlayer.Builder(this).build();
-
-        // Bind the player to the view
         PlayerView playerView = findViewById(R.id.player_view);
         playerView.setPlayer(player);
 
@@ -55,114 +45,41 @@ public class MainActivity extends AppCompatActivity {
 
         // Set initial media item
         player.setMediaItem(mediaItems.get(currentMediaIndex));
-
-        // Prepare and start playback
         player.prepare();
         player.play();
 
-        // Set up a single listener to handle playback events
         player.addListener(new Player.Listener() {
             @Override
             public void onPlaybackStateChanged(int playbackState) {
                 if (playbackState == Player.STATE_ENDED) {
-                    Log.d(TAG, "Playback ended");
                     handleLoopEnd();
-                } else if (playbackState == Player.STATE_READY) {
-                    Log.d(TAG, "Playback ready");
-                } else if (playbackState == Player.STATE_BUFFERING) {
-                    Log.d(TAG, "Playback buffering");
                 }
             }
         });
 
-        // Set up the custom toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Remove default title text
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-
-        // Initialize the FrameLayouts and assign tags
-        frameLayouts = new FrameLayout[]{
-                findViewById(R.id.placky),
-                findViewById(R.id.thai_polievka),
-                findViewById(R.id.lievance),
-                findViewById(R.id.chilli_con_carne),
-                findViewById(R.id.muffiny),
-                findViewById(R.id.baklava),
-                findViewById(R.id.hamburger),
-                findViewById(R.id.carbonara),
-                findViewById(R.id.shakshuka),
-                findViewById(R.id.butter_chicken),
-                findViewById(R.id.placky_naan),
-                findViewById(R.id.palacinky),
-                findViewById(R.id.pizza),
-                findViewById(R.id.zapekanky),
-                findViewById(R.id.crispy_chicken),
-                findViewById(R.id.teriyaki),
-                findViewById(R.id.tortilla_placky),
-                findViewById(R.id.gyros)
-        };
-
-        // Assign tags
-        findViewById(R.id.placky).setTag("appetizer");
-        findViewById(R.id.thai_polievka).setTag("appetizer");
-        findViewById(R.id.lievance).setTag("dessert");
-        findViewById(R.id.chilli_con_carne).setTag("mainDish");
-        findViewById(R.id.muffiny).setTag("dessert");
-        findViewById(R.id.baklava).setTag("dessert");
-        findViewById(R.id.hamburger).setTag("mainDish");
-        findViewById(R.id.carbonara).setTag("mainDish");
-        findViewById(R.id.shakshuka).setTag("appetizer");
-        findViewById(R.id.butter_chicken).setTag("mainDish");
-        findViewById(R.id.placky_naan).setTag("appetizer");
-        findViewById(R.id.palacinky).setTag("dessert");
-        findViewById(R.id.pizza).setTag("mainDish");
-        findViewById(R.id.zapekanky).setTag("appetizer");
-        findViewById(R.id.crispy_chicken).setTag("mainDish");
-        findViewById(R.id.teriyaki).setTag("mainDish");
-        findViewById(R.id.tortilla_placky).setTag("appetizer");
-        findViewById(R.id.gyros).setTag("mainDish");
-
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
-
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(18);
-
-        // Initialize the SparseArray with button IDs and corresponding text
-        buttonTextMap = new SparseArray<>();
-        buttonTextMap.put(R.id.button1, getString(R.string.placky));
-        buttonTextMap.put(R.id.button2, getString(R.string.thai_polievka));
-        buttonTextMap.put(R.id.button3, getString(R.string.lievance));
-        buttonTextMap.put(R.id.button4, getString(R.string.chilli_con_carne));
-        buttonTextMap.put(R.id.button5, getString(R.string.muffiny));
-        buttonTextMap.put(R.id.button6, getString(R.string.baklava));
-        buttonTextMap.put(R.id.button7, getString(R.string.hamburger));
-        buttonTextMap.put(R.id.button8, getString(R.string.carbonara));
-        buttonTextMap.put(R.id.button9, getString(R.string.shakshuka));
-        buttonTextMap.put(R.id.button10, getString(R.string.butter_chicken));
-        buttonTextMap.put(R.id.button11, getString(R.string.placky_naan));
-        buttonTextMap.put(R.id.button12, getString(R.string.palacinky));
-        buttonTextMap.put(R.id.button13, getString(R.string.pizza));
-        buttonTextMap.put(R.id.button14, getString(R.string.zapekanky));
-        buttonTextMap.put(R.id.button15, getString(R.string.crispy_chicken));
-        buttonTextMap.put(R.id.button16, getString(R.string.teriyaki));
-        buttonTextMap.put(R.id.button17, getString(R.string.tortilla_placky));
-        buttonTextMap.put(R.id.button18, getString(R.string.gyros));
-
-        // Set button click listeners
-        findViewById(R.id.hlavne_jedla).setOnClickListener(v -> handleCategoryButtonClick("mainDish", buttonBack, textView, buttonTextMap, v));
-        findViewById(R.id.predjedla).setOnClickListener(v -> handleCategoryButtonClick("appetizer", buttonBack, textView, buttonTextMap, v));
-        findViewById(R.id.dezerty).setOnClickListener(v -> handleCategoryButtonClick("dessert", buttonBack, textView, buttonTextMap, v));
-        // Add listeners for other buttons...
         mainDishButton = findViewById(R.id.hlavne_jedla);
         appetizerButton = findViewById(R.id.predjedla);
         dessertButton = findViewById(R.id.dezerty);
 
         buttonBack.setOnClickListener(this::handleBackButtonClick);
+
+        recyclerView = findViewById(R.id.recyclerView);
+
+        int spanCount = 3; // Number of columns
+        int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_item_spacing); // Define this in your dimens.xml
+        recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing));
+
+        // Initialize the item list and adapter
+        itemList = new ArrayList<>();
+        adapter = new Adapter(itemList, this);
+        recyclerView.setAdapter(adapter);
+
+        mainDishButton.setOnClickListener(v -> handleCategoryButtonClick("mainDish"));
+        appetizerButton.setOnClickListener(v -> handleCategoryButtonClick("appetizer"));
+        dessertButton.setOnClickListener(v -> handleCategoryButtonClick("dessert"));
     }
 
     private void handleLoopEnd() {
@@ -196,61 +113,65 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleCategoryButtonClick(String categoryTag, Button buttonBack, TextView textView, SparseArray<String> buttonTextMap, View view) {
-        // Hide all FrameLayouts
-        for (FrameLayout frameLayout : frameLayouts) {
-            frameLayout.setVisibility(View.GONE);
+    public void handleCategoryButtonClick(String categoryTag) {
+        itemList.clear();
+
+        switch (categoryTag) {
+            case "mainDish":
+                itemList.add(new Item(R.drawable.hamburger, "Hamburger", R.id.itemFrame, getString(R.string.hamburger)));
+                itemList.add(new Item(R.drawable.carbonara, "Carbonara", R.id.itemFrame, getString(R.string.carbonara)));
+                itemList.add(new Item(R.drawable.chilli_con_carne, "Chilli con Carne", R.id.itemFrame, getString(R.string.chilli_con_carne)));
+                itemList.add(new Item(R.drawable.butter_chicken, "Butter Chicken", R.id.itemFrame, getString(R.string.butter_chicken)));
+                itemList.add(new Item(R.drawable.pizza, "Pizza", R.id.itemFrame, getString(R.string.pizza)));
+                itemList.add(new Item(R.drawable.crispy_chicken, "Crispy Chicken", R.id.itemFrame, getString(R.string.crispy_chicken)));
+                itemList.add(new Item(R.drawable.teriyaki, "Teriyaki", R.id.itemFrame, getString(R.string.teriyaki)));
+                itemList.add(new Item(R.drawable.gyros, "Gyros", R.id.itemFrame, getString(R.string.gyros)));
+                break;
+            case "appetizer":
+                itemList.add(new Item(R.drawable.placky, "Placky", R.id.itemFrame, getString(R.string.placky)));
+                itemList.add(new Item(R.drawable.th_polievka, "Thai Polievka", R.id.itemFrame, getString(R.string.thai_polievka)));
+                itemList.add(new Item(R.drawable.shakshuka, "Shakshuka", R.id.itemFrame, getString(R.string.shakshuka)));
+                itemList.add(new Item(R.drawable.placky_naan, "Placky naan", R.id.itemFrame, getString(R.string.placky_naan)));
+                itemList.add(new Item(R.drawable.zapekanky, "Zapekanky", R.id.itemFrame, getString(R.string.zapekanky)));
+                itemList.add(new Item(R.drawable.tortilla_placky, "Tortilla placky", R.id.itemFrame, getString(R.string.tortilla_placky)));
+                break;
+            case "dessert":
+                itemList.add(new Item(R.drawable.palacinky, "Palacinky", R.id.itemFrame, getString(R.string.palacinky)));
+                itemList.add(new Item(R.drawable.lievance, "Lievance", R.id.itemFrame, getString(R.string.lievance)));
+                itemList.add(new Item(R.drawable.muffiny, "Muffiny", R.id.itemFrame, getString(R.string.muffiny)));
+                itemList.add(new Item(R.drawable.baklava, "Baklava", R.id.itemFrame, getString(R.string.baklava)));
+                break;
         }
 
-        // Show FrameLayouts with the specified tag
-        for (FrameLayout frameLayout : frameLayouts) {
-            if (categoryTag.equals(frameLayout.getTag())) {
-                frameLayout.setVisibility(View.VISIBLE);
-            }
-        }
+        adapter.notifyDataSetChanged();
 
-        // Show the "Späť" button
+        // Update UI visibility
+        recyclerView.setVisibility(View.VISIBLE);
         buttonBack.setVisibility(View.VISIBLE);
-
-        String buttonText = buttonTextMap.get(view.getId());
-        if (buttonText != null) {
-            textView.setText(buttonText);
-        }
-    }
-
-    public void handleButtonClick(View view) {
-        // Hide all FrameLayouts
-        for (FrameLayout frameLayout : frameLayouts) {
-            frameLayout.setVisibility(View.GONE);
-        }
-
-        // Show the "Späť" button
-        buttonBack.setVisibility(View.VISIBLE);
-
-        String buttonText = buttonTextMap.get(view.getId());
-        if (buttonText != null) {
-            textView.setText(buttonText);
-        }
-
-        mainDishButton.setVisibility(View.GONE);
-        appetizerButton.setVisibility(View.GONE);
-        dessertButton.setVisibility(View.GONE);
     }
 
     public void handleBackButtonClick(View view) {
-        // Show all FrameLayouts
-        for (FrameLayout frameLayout : frameLayouts) {
-            frameLayout.setVisibility(View.VISIBLE);
-        }
-
-        // Hide the "Späť" button
+        // Update UI visibility
+        recyclerView.setVisibility(View.VISIBLE);
         buttonBack.setVisibility(View.GONE);
-
-        // Clear the TextView text
-        textView.setText("Vyber si na čo máš dneska chuť, ináč povedané, suroviny :)");
-
-        mainDishButton.setVisibility(View.VISIBLE);
-        appetizerButton.setVisibility(View.VISIBLE);
-        dessertButton.setVisibility(View.VISIBLE);
+        findViewById(R.id.categoryGrid).setVisibility(View.VISIBLE);
+        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+            View child = recyclerView.getChildAt(i);
+            child.setVisibility(View.VISIBLE);
+        }
+        textView.setText("");
     }
+
+    @Override
+    public void onItemClick(Item item) {
+        // Hide all FrameLayouts
+        recyclerView.setVisibility(View.GONE);
+
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(item.getString());
+
+        buttonBack.setVisibility(View.VISIBLE);
+        findViewById(R.id.categoryGrid).setVisibility(View.GONE);
+    }
+
 }
