@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
 
         // Update UI visibility
         recyclerView.setVisibility(View.VISIBLE);
-        buttonBack.setVisibility(View.VISIBLE);
     }
 
     public void handleBackButtonClick(View view) {
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             View child = recyclerView.getChildAt(i);
             child.setVisibility(View.VISIBLE);
         }
-        textView.setText("");
+        textView.setText("Vítaj späť :)");
     }
 
     @Override
@@ -167,8 +166,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         // Hide all FrameLayouts
         recyclerView.setVisibility(View.GONE);
 
+        textView.setText(item.getRecipe());
         textView.setVisibility(View.VISIBLE);
-        textView.setText(item.getString());
 
         buttonBack.setVisibility(View.VISIBLE);
         findViewById(R.id.categoryGrid).setVisibility(View.GONE);

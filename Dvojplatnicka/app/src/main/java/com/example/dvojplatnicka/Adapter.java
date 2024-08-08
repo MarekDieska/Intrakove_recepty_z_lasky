@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+    public static String recipe;
     private List<Item> items;
     private OnItemClickListener listener;
 
@@ -60,11 +62,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
             button.setImageResource(item.getImageResId());
             textView.setText(item.getText());
+            //System.out.println(item.getString());
 
             // Set OnClickListener for the ImageButton
             button.setOnClickListener(v -> {
                 if (listener != null) {
-                    listener.onItemClick(item);
+                    listener.onItemClick(item); // This should correctly pass the item
                 }
             });
 
