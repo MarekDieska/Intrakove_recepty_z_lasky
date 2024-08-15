@@ -1,9 +1,14 @@
 package com.example.dvojplatnicka;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,23 +18,33 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.PlayerView;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener, Adapter.OnLikeClickListener {
 
-    private Button buttonBack, mainDishButton, appetizerButton, dessertButton;
+    private Button buttonBack;
+    private Button confirmShoppingListButton;
+    private Button removeShoppingListButton;
     private TextView textView;
     private ExoPlayer player;
     private List<MediaItem> mediaItems;
     private int currentMediaIndex = 0;
     private RecyclerView recyclerView;
+    private GridLayout shoppingListGrid;
     private Adapter adapter;
     private List<Item> itemList;
+    private Set<String> likedRecipes;
+    private boolean cleared = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        likedRecipes = new HashSet<>();
 
         // Initialize ExoPlayer
         player = new ExoPlayer.Builder(this).build();
@@ -57,16 +72,30 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             }
         });
 
+        // Initialize Views
         buttonBack = findViewById(R.id.buttonBack);
         textView = findViewById(R.id.startText);
-        mainDishButton = findViewById(R.id.hlavne_jedla);
-        appetizerButton = findViewById(R.id.predjedla);
-        dessertButton = findViewById(R.id.dezerty);
-
-        buttonBack.setOnClickListener(this::handleBackButtonClick);
-
+        Button mainDishButton = findViewById(R.id.hlavne_jedla);
+        Button appetizerButton = findViewById(R.id.predjedla);
+        Button dessertButton = findViewById(R.id.dezerty);
+        ImageButton likeButton = findViewById(R.id.likedButton);
+        shoppingListGrid = findViewById(R.id.shoppingListGrid);
+        confirmShoppingListButton = findViewById(R.id.confirm_button);
+        removeShoppingListButton = findViewById(R.id.remove_button);
+        Button shoppingListButton = findViewById(R.id.shoppingListButton);
         recyclerView = findViewById(R.id.recyclerView);
 
+        // Set Click Listeners
+        buttonBack.setOnClickListener(this::handleBackButtonClick);
+        mainDishButton.setOnClickListener(v -> handleCategoryButtonClick("mainDish"));
+        appetizerButton.setOnClickListener(v -> handleCategoryButtonClick("appetizer"));
+        dessertButton.setOnClickListener(v -> handleCategoryButtonClick("dessert"));
+        likeButton.setOnClickListener(v -> handleCategoryButtonClick("liked"));
+        shoppingListButton.setOnClickListener(this::shoppingListClick);
+        confirmShoppingListButton.setOnClickListener(this::confirmShoppingListClick);
+        removeShoppingListButton.setOnClickListener(this::removeShoppingListClick);
+
+        // Initialize RecyclerView
         int spanCount = 3; // Number of columns
         int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_item_spacing); // Define this in your dimens.xml
         recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
@@ -74,13 +103,13 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
 
         // Initialize the item list and adapter
         itemList = new ArrayList<>();
-        adapter = new Adapter(itemList, this);
+        adapter = new Adapter(itemList, this, this, likedRecipes, this); // Pass the current context
         recyclerView.setAdapter(adapter);
 
-        mainDishButton.setOnClickListener(v -> handleCategoryButtonClick("mainDish"));
-        appetizerButton.setOnClickListener(v -> handleCategoryButtonClick("appetizer"));
-        dessertButton.setOnClickListener(v -> handleCategoryButtonClick("dessert"));
+        // Load initial category
+        handleCategoryButtonClick("all");
     }
+
 
     private void handleLoopEnd() {
         currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
@@ -113,8 +142,12 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void handleCategoryButtonClick(String categoryTag) {
-        itemList.clear();
+        // Clear the list only for non-"liked" categories
+        if (!categoryTag.equals("liked")) {
+            itemList.clear();
+        }
 
         switch (categoryTag) {
             case "mainDish":
@@ -141,13 +174,31 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
                 itemList.add(new Item(R.drawable.muffiny, "Muffiny", R.id.itemFrame, getString(R.string.muffiny)));
                 itemList.add(new Item(R.drawable.baklava, "Baklava", R.id.itemFrame, getString(R.string.baklava)));
                 break;
+            case "liked":
+                // Create a new list for liked items
+                List<Item> likedItems = new ArrayList<>();
+                for (Item item : itemList) {
+                    if (likedRecipes.contains(item.getText().trim())) {
+                        likedItems.add(item);
+                    }
+                }
+                // Clear the original list and add only liked items
+                itemList.clear();
+                itemList.addAll(likedItems);
+                break;
+            default:
+                break;
         }
 
+        // Notify adapter of changes
         adapter.notifyDataSetChanged();
 
         // Update UI visibility
         recyclerView.setVisibility(View.VISIBLE);
+        shoppingListGrid.setVisibility(View.VISIBLE);
     }
+
+
 
     public void handleBackButtonClick(View view) {
         // Update UI visibility
@@ -158,12 +209,11 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             View child = recyclerView.getChildAt(i);
             child.setVisibility(View.VISIBLE);
         }
-        textView.setText("Vítaj späť :)");
+        textView.setText("Vitaj späť :)");
     }
 
     @Override
     public void onItemClick(Item item) {
-        // Hide all FrameLayouts
         recyclerView.setVisibility(View.GONE);
 
         textView.setText(item.getRecipe());
@@ -173,4 +223,28 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         findViewById(R.id.categoryGrid).setVisibility(View.GONE);
     }
 
+    @Override
+    public void onLikeClick(String recipeName, boolean isLiked) {
+        if (isLiked) {
+            likedRecipes.add(recipeName);
+        } else {
+            likedRecipes.remove(recipeName);
+        }
+        adapter.saveLikedRecipes();
+    }
+
+    public void shoppingListClick(View view) {
+        confirmShoppingListButton.setVisibility(View.VISIBLE);
+        removeShoppingListButton.setVisibility(View.VISIBLE);
+    }
+
+    public void confirmShoppingListClick(View view) {
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(":)");
+    }
+
+    public void removeShoppingListClick(View view) {
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(":O");
+    }
 }

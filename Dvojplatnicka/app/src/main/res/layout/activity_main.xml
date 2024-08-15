@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/player_view"
         android:fillViewport="true"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="120dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +30,8 @@
             <!-- ConstraintLayout inside the ScrollView -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/constraintLayout">
 
                 <include
                     android:id="@+id/toolbar"
@@ -54,7 +55,7 @@
                     android:id="@+id/startText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vyber si na čo máš dneska chuť, ináč povedané, suroviny :)"
+                    android:text="Krásny deň na varenie dobrých jedál"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="normal"
@@ -116,8 +117,72 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:visibility="visible" />
+
         </LinearLayout>
     </ScrollView>
+
+
+    <GridLayout
+        android:id="@+id/shoppingListGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✓"
+            android:textSize="24sp"
+            android:textColor="@android:color/holo_green_light"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            android:onClick="confirmShoppingListClick"/>
+
+        <Button
+            android:id="@+id/shoppingListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📜"
+            android:textSize="30sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:background="@android:color/transparent"
+            android:onClick="shoppingListClick"
+            android:alpha="0.7"/>
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✗"
+            android:textSize="24sp"
+            android:textColor="@android:color/holo_red_light"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            android:onClick="removeShoppingListClick"/>
+
+    </GridLayout>
+
+    <ImageButton
+        android:id="@+id/likedButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/showliked"
+        android:text=""
+        android:src="@drawable/liked_button"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:layout_alignTop="@id/shoppingListGrid"/>
+
+
 
     <!-- Späť Button (Initially Hidden) -->
     <Button

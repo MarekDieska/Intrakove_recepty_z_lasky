@@ -5,6 +5,7 @@ public class Item {
     private String text;
     private int id;  // Optional: ID or any other identifier
     private String recipe;
+    private boolean isLiked = false;
 
     // Constructor
     public Item(int imageResId, String text, int id, String recipe) {
@@ -47,5 +48,13 @@ public class Item {
 
     public void setRecipe(String string) {
         this.recipe = recipe;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }
