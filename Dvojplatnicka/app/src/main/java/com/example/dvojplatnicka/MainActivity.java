@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private Adapter adapter;
     private List<Item> itemList;
     private Set<String> likedRecipes;
-    private boolean cleared = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,50 +144,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     @SuppressLint("NotifyDataSetChanged")
     public void handleCategoryButtonClick(String categoryTag) {
         // Clear the list only for non-"liked" categories
-        if (!categoryTag.equals("liked")) {
-            itemList.clear();
-        }
 
-        switch (categoryTag) {
-            case "mainDish":
-                itemList.add(new Item(R.drawable.hamburger, "Hamburger", R.id.itemFrame, getString(R.string.hamburger)));
-                itemList.add(new Item(R.drawable.carbonara, "Carbonara", R.id.itemFrame, getString(R.string.carbonara)));
-                itemList.add(new Item(R.drawable.chilli_con_carne, "Chilli con Carne", R.id.itemFrame, getString(R.string.chilli_con_carne)));
-                itemList.add(new Item(R.drawable.butter_chicken, "Butter Chicken", R.id.itemFrame, getString(R.string.butter_chicken)));
-                itemList.add(new Item(R.drawable.pizza, "Pizza", R.id.itemFrame, getString(R.string.pizza)));
-                itemList.add(new Item(R.drawable.crispy_chicken, "Crispy Chicken", R.id.itemFrame, getString(R.string.crispy_chicken)));
-                itemList.add(new Item(R.drawable.teriyaki, "Teriyaki", R.id.itemFrame, getString(R.string.teriyaki)));
-                itemList.add(new Item(R.drawable.gyros, "Gyros", R.id.itemFrame, getString(R.string.gyros)));
-                break;
-            case "appetizer":
-                itemList.add(new Item(R.drawable.placky, "Placky", R.id.itemFrame, getString(R.string.placky)));
-                itemList.add(new Item(R.drawable.th_polievka, "Thai Polievka", R.id.itemFrame, getString(R.string.thai_polievka)));
-                itemList.add(new Item(R.drawable.shakshuka, "Shakshuka", R.id.itemFrame, getString(R.string.shakshuka)));
-                itemList.add(new Item(R.drawable.placky_naan, "Placky naan", R.id.itemFrame, getString(R.string.placky_naan)));
-                itemList.add(new Item(R.drawable.zapekanky, "Zapekanky", R.id.itemFrame, getString(R.string.zapekanky)));
-                itemList.add(new Item(R.drawable.tortilla_placky, "Tortilla placky", R.id.itemFrame, getString(R.string.tortilla_placky)));
-                break;
-            case "dessert":
-                itemList.add(new Item(R.drawable.palacinky, "Palacinky", R.id.itemFrame, getString(R.string.palacinky)));
-                itemList.add(new Item(R.drawable.lievance, "Lievance", R.id.itemFrame, getString(R.string.lievance)));
-                itemList.add(new Item(R.drawable.muffiny, "Muffiny", R.id.itemFrame, getString(R.string.muffiny)));
-                itemList.add(new Item(R.drawable.baklava, "Baklava", R.id.itemFrame, getString(R.string.baklava)));
-                break;
-            case "liked":
-                // Create a new list for liked items
-                List<Item> likedItems = new ArrayList<>();
-                for (Item item : itemList) {
-                    if (likedRecipes.contains(item.getText().trim())) {
-                        likedItems.add(item);
-                    }
-                }
-                // Clear the original list and add only liked items
-                itemList.clear();
-                itemList.addAll(likedItems);
-                break;
-            default:
-                break;
-        }
+        AdjustList.adjust(categoryTag, itemList, likedRecipes, this);
 
         // Notify adapter of changes
         adapter.notifyDataSetChanged();
@@ -210,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             child.setVisibility(View.VISIBLE);
         }
         textView.setText("Vitaj späť :)");
+        findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -221,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
 
         buttonBack.setVisibility(View.VISIBLE);
         findViewById(R.id.categoryGrid).setVisibility(View.GONE);
+        findViewById(R.id.likedButton).setVisibility(View.GONE);
     }
 
     @Override

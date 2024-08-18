@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="100dp"
         android:layout_height="100dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:layout_constraintDimensionRatio="1:1">
+        app:layout_constraintDimensionRatio="1:1"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
 
         <ImageButton
             android:id="@+id/button"
@@ -34,7 +37,7 @@
             android:gravity="center"
             android:layout_gravity="center" />
 
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
     <ImageButton
         android:id="@+id/like_button"
