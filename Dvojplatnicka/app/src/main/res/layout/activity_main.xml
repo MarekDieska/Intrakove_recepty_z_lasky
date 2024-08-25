@@ -13,111 +13,120 @@
         android:layout_height="0dp"
         android:layout_alignParentTop="true" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar" />
+
+        <!-- TextView for menu header -->
+        <TextView
+            android:id="@+id/textViewHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu:"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <!-- TextView to display text -->
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Krásny deň na varenie dobrých jedál"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewHeader" />
+
+        <!-- Button Grid Layout -->
+        <GridLayout
+            android:id="@+id/categoryGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="84dp"
+            android:layout_marginStart="2dp"
+            android:columnCount="3"
+            android:rowCount="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/startText">
+
+            <Button
+                android:id="@+id/predjedla"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/transparent_bg_colored"
+                android:onClick="handleCategoryButtonClick"
+                android:text="🍜"
+                android:textColor="@android:color/white"
+                android:textSize="36sp" />
+
+            <Button
+                android:id="@+id/hlavne_jedla"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/transparent_bg_colored"
+                android:onClick="handleCategoryButtonClick"
+                android:text="🍝"
+                android:textColor="@android:color/white"
+                android:textSize="32sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/dezerty"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/transparent_bg_colored"
+                android:onClick="handleCategoryButtonClick"
+                android:text="🍰"
+                android:textColor="@android:color/white"
+                android:textSize="32sp" />
+        </GridLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <!-- ScrollView for the content -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/player_view"
+        android:layout_below="@id/constraintLayout"
         android:fillViewport="true"
-        android:layout_marginBottom="120dp">
+        android:layout_marginBottom="75dp"
+        tools:ignore="NotSibling">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <!-- ConstraintLayout inside the ScrollView -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/constraintLayout">
-
-                <include
-                    android:id="@+id/toolbar"
-                    layout="@layout/custom_toolbar" />
-
-                <!-- TextView for menu header -->
-                <TextView
-                    android:id="@+id/textViewHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Menu:\n"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <!-- TextView to display text -->
-                <TextView
-                    android:id="@+id/startText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Krásny deň na varenie dobrých jedál"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="normal"
-                    app:layout_constraintTop_toBottomOf="@id/textViewHeader"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"/>
-
-                <!-- Button Grid Layout -->
-                <GridLayout
-                    android:id="@+id/categoryGrid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:columnCount="3"
-                    android:rowCount="1"
-                    app:layout_constraintTop_toBottomOf="@id/startText"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <Button
-                        android:id="@+id/predjedla"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🍜"
-                        android:textSize="32sp"
-                        android:textColor="@android:color/white"
-                        android:onClick="handleCategoryButtonClick" />
-
-                    <Button
-                        android:id="@+id/hlavne_jedla"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🍝"
-                        android:textSize="32sp"
-                        android:textColor="@android:color/white"
-                        android:onClick="handleCategoryButtonClick" />
-
-                    <Button
-                        android:id="@+id/dezerty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🍰"
-                        android:textSize="32sp"
-                        android:textColor="@android:color/white"
-                        android:onClick="handleCategoryButtonClick" />
-
-                </GridLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- RecyclerView for the list of items -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:visibility="visible"
-                android:layout_gravity="center"/>
+
+                />
 
         </LinearLayout>
     </ScrollView>
@@ -170,22 +179,19 @@
 
     </GridLayout>
 
+
     <ImageButton
         android:id="@+id/likedButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_alignTop="@id/shoppingListGrid"
         android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/showliked"
-        android:text=""
-        android:src="@drawable/liked_button"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_alignTop="@id/shoppingListGrid"/>
+        android:contentDescription="@string/showliked"
+        android:scaleType="fitCenter"
+        android:src="@drawable/liked_button"
+        android:text="" />
 
-
-
-    <!-- Späť Button (Initially Hidden) -->
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"

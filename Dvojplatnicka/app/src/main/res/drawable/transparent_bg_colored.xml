@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <!-- background -->
+            <solid android:color="#090018" />
+            <!-- border -->
+            <stroke android:width="2dp" android:color="@color/toolbar" />
+
+            <!-- corner roundness -->
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+</selector>
