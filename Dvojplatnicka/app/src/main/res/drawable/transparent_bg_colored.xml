@@ -8,7 +8,7 @@
             <stroke android:width="2dp" android:color="@color/toolbar" />
 
             <!-- corner roundness -->
-            <corners android:radius="50dp" />
+            <corners android:radius="100dp" />
         </shape>
     </item>
 </selector>

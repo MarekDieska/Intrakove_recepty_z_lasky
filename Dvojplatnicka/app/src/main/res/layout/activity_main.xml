@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main_layout"
     tools:context=".MainActivity">
 
     <!-- ExoPlayer View -->
@@ -103,7 +102,6 @@
 
     <!-- ScrollView for the content -->
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/constraintLayout"
@@ -182,14 +180,16 @@
 
     <ImageButton
         android:id="@+id/likedButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:layout_alignTop="@id/shoppingListGrid"
         android:layout_gravity="center"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/transparent_bg_colored"
         android:contentDescription="@string/showliked"
         android:scaleType="fitCenter"
-        android:src="@drawable/liked_button"
+        android:src="@drawable/liked"
         android:text="" />
 
     <Button
@@ -204,5 +204,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:onClick="handleBackButtonClick" />
+
 
 </RelativeLayout>
