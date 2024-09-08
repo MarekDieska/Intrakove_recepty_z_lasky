@@ -252,7 +252,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/shopping_menu"
@@ -263,12 +263,14 @@
             android:id="@+id/shopping_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/android:textColor"
+            android:textColorHint="?attr/android:textColor"
             android:hint="Tu si môžes písať svoj nákupný zoznam"
             app:layout_constraintTop_toTopOf="@id/shopping_menu">
 
         </EditText>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </RelativeLayout>
 

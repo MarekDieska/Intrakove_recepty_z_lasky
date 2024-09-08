@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Switch themeSwitch;
-    private ConstraintLayout shoppingMenu;
+    private ScrollView shoppingMenu;
 
 
     @Override
