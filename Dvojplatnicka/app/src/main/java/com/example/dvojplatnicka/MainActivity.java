@@ -1,7 +1,6 @@
 package com.example.dvojplatnicka;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,37 +8,61 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.PlayerView;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener, Adapter.OnLikeClickListener {
 
     private Button buttonBack;
+    private ImageButton settingsButton;
     private Button confirmShoppingListButton;
     private Button removeShoppingListButton;
-    private TextView textView;
+    private TextView textView, menuText;
     private ExoPlayer player;
     private List<MediaItem> mediaItems;
     private int currentMediaIndex = 0;
     private RecyclerView recyclerView;
     private GridLayout shoppingListGrid;
+    private ConstraintLayout settingsMenu;
+    private RelativeLayout mainView;
     private Adapter adapter;
     private List<Item> itemList;
     private Set<String> likedRecipes;
+    private boolean settings = false;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private Switch themeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        likedRecipes = new HashSet<>();
+
+        sharedPreferences = getSharedPreferences("ThemePref", MODE_PRIVATE);
+        boolean isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false);
+        if (isDarkTheme) {
+            setTheme(R.style.Theme_night);
+        } else {
+            setTheme(R.style.Theme_day);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -71,9 +94,13 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             }
         });
 
-        // Initialize Views
+        themeSwitch = findViewById(R.id.theme_switch);
+        mainView = findViewById(R.id.mainView);
+        settingsMenu = findViewById(R.id.settings_menu);
+        settingsButton = findViewById(R.id.settingsButton);
+        menuText = findViewById(R.id.menuText);
+        textView = findViewById(R.id.recipeText);
         buttonBack = findViewById(R.id.buttonBack);
-        textView = findViewById(R.id.startText);
         Button mainDishButton = findViewById(R.id.hlavne_jedla);
         Button appetizerButton = findViewById(R.id.predjedla);
         Button dessertButton = findViewById(R.id.dezerty);
@@ -85,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         recyclerView = findViewById(R.id.recyclerView);
 
         // Set Click Listeners
+        settingsButton.setOnClickListener(this::handleSettingsClick);
         buttonBack.setOnClickListener(this::handleBackButtonClick);
         mainDishButton.setOnClickListener(v -> handleCategoryButtonClick("mainDish"));
         appetizerButton.setOnClickListener(v -> handleCategoryButtonClick("appetizer"));
@@ -93,6 +121,14 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         shoppingListButton.setOnClickListener(this::shoppingListClick);
         confirmShoppingListButton.setOnClickListener(this::confirmShoppingListClick);
         removeShoppingListButton.setOnClickListener(this::removeShoppingListClick);
+
+        themeSwitch.setChecked(isDarkTheme); // Set initial state based on current theme
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            editor = sharedPreferences.edit();
+            editor.putBoolean("isDarkTheme", isChecked);
+            editor.apply();
+            recreate(); // Recreate activity to apply the new theme
+        });
 
         // Initialize RecyclerView
         int spanCount = 3; // Number of columns
@@ -141,6 +177,20 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         }
     }
 
+    public void handleSettingsClick(View view) {
+        if(!settings) {
+            mainView.setVisibility(View.GONE);
+            settingsMenu.setVisibility(View.VISIBLE);
+            settings = true;
+        }
+        else {
+            mainView.setVisibility(View.VISIBLE);
+            settingsMenu.setVisibility(View.GONE);
+            settings = false;
+        }
+
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void handleCategoryButtonClick(String categoryTag) {
         // Clear the list only for non-"liked" categories
@@ -168,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         }
         textView.setText("Vitaj späť :)");
         findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
+        menuText.setText("Menu");
     }
 
     @Override
@@ -180,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         buttonBack.setVisibility(View.VISIBLE);
         findViewById(R.id.categoryGrid).setVisibility(View.GONE);
         findViewById(R.id.likedButton).setVisibility(View.GONE);
+        menuText.setText(item.getText());
     }
 
     @Override

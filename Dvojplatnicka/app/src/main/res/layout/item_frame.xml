@@ -24,18 +24,19 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/black"
+            android:background="?attr/android:statusBarColor"
             android:alpha="0.4" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_200"
-            android:textSize="18sp"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:fontFamily="@font/nerko_one"/>
 
     </androidx.cardview.widget.CardView>
 

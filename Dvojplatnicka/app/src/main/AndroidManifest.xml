@@ -10,7 +10,7 @@
         android:label="Dvojplatnička"
         android:roundIcon="@drawable/logo_dvojplatnicka"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Dvojplatnicka"
+        android:theme="@style/Theme_night"
         tools:targetApi="31">
 
         <activity android:name=".MainActivity"

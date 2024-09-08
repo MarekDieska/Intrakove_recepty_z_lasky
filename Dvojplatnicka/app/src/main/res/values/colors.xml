@@ -7,6 +7,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple_200">#ffdfdfff</color>
     <color name="toolbar">#4E0C1D</color>
+    <color name="textColorLight">#000000</color>
+    <color name="textColorDark">#FFFFFF</color>
+    <color name="day_toolbar">#00ABE7</color>
+    <color name="blue_background">#A7DDF1</color>
+    <color name="gold_200">#ffffee</color>
 
 
 </resources>

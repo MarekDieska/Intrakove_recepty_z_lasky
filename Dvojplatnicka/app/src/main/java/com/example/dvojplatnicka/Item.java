@@ -24,7 +24,6 @@ public class Item {
         this.imageResId = imageResId;
     }
 
-    // Getter and Setter for text
     public String getText() {
         return text;
     }

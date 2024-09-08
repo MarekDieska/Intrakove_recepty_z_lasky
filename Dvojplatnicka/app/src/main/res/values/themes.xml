@@ -1,16 +1,34 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.Dvojplatnicka" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme_day" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/toolbar</item>
-        <item name="colorPrimaryVariant">@color/toolbar</item>
+        <item name="colorPrimary">@color/day_toolbar</item>
+        <item name="colorPrimaryVariant">@color/day_toolbar</item>
+        <item name="android:windowBackground">@color/blue_background</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColor">@color/textColorLight</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/gold_200</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">#445588</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme_night" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/toolbar</item>
+        <item name="colorPrimaryVariant">#400A1E</item>
+        <item name="colorOnPrimary">@color/purple_500</item>
+        <item name="android:windowBackground">#090018</item>
+        <item name="android:textColor">@color/textColorDark</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/purple_200</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

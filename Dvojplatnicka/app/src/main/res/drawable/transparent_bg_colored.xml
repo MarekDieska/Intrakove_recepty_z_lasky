@@ -3,9 +3,9 @@
     <item>
         <shape android:shape="oval">
             <!-- background -->
-            <solid android:color="#090018" />
+            <solid android:color="?attr/android:windowBackground" />
             <!-- border -->
-            <stroke android:width="2dp" android:color="@color/toolbar" />
+            <stroke android:width="2dp" android:color="?attr/colorPrimary" />
 
             <!-- corner roundness -->
             <corners android:radius="100dp" />

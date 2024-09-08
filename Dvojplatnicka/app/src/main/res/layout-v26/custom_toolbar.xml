@@ -1,0 +1,31 @@
+<!-- res/layout/custom_toolbar.xml -->
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:anroid="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        anroid:fontFamily="@font/dancing_script"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:contentDescription="@string/showliked"
+        android:scaleType="fitCenter"
+        android:src="@drawable/settings"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"/>
+
+
+
+</androidx.appcompat.widget.Toolbar>
