@@ -1,6 +1,7 @@
 package com.example.dvojplatnicka;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.EditText;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -30,6 +32,10 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener, Adapter.OnLikeClickListener {
 
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String KEY_SHOPPING_LIST = "shopping_list";
+
+    private EditText shoppingEditText;
     private Button buttonBack;
     private ImageButton settingsButton;
     private Button confirmShoppingListButton;
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Switch themeSwitch;
+    private ConstraintLayout shoppingMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             }
         });
 
+        shoppingEditText = findViewById(R.id.shopping_edit_text);
+        shoppingMenu = findViewById(R.id.shopping_menu);
         themeSwitch = findViewById(R.id.theme_switch);
         mainView = findViewById(R.id.mainView);
         settingsMenu = findViewById(R.id.settings_menu);
@@ -130,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             recreate(); // Recreate activity to apply the new theme
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String savedText = sharedPreferences.getString(KEY_SHOPPING_LIST, ""); // Default is empty string
+        shoppingEditText.setText(savedText);
+
         // Initialize RecyclerView
         int spanCount = 3; // Number of columns
         int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_item_spacing); // Define this in your dimens.xml
@@ -158,6 +172,14 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         if (player != null) {
             player.setPlayWhenReady(false);
         }
+
+        String userInput = shoppingEditText.getText().toString();
+
+        // Save the text in SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_SHOPPING_LIST, userInput); // Store the user input
+        editor.apply();
     }
 
     @Override
@@ -182,11 +204,14 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             mainView.setVisibility(View.GONE);
             settingsMenu.setVisibility(View.VISIBLE);
             settings = true;
+            shoppingListGrid.setVisibility(View.GONE);
+            shoppingMenu.setVisibility(View.GONE);
         }
         else {
             mainView.setVisibility(View.VISIBLE);
             settingsMenu.setVisibility(View.GONE);
             settings = false;
+            shoppingListGrid.setVisibility(View.VISIBLE);
         }
 
     }
@@ -247,15 +272,26 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     public void shoppingListClick(View view) {
         confirmShoppingListButton.setVisibility(View.VISIBLE);
         removeShoppingListButton.setVisibility(View.VISIBLE);
+        mainView.setVisibility(View.GONE);
+        shoppingMenu.setVisibility(View.VISIBLE);
     }
 
     public void confirmShoppingListClick(View view) {
         textView.setVisibility(View.VISIBLE);
         textView.setText(":)");
+        mainView.setVisibility(View.VISIBLE);
+        shoppingMenu.setVisibility(View.GONE);
+        confirmShoppingListButton.setVisibility(View.GONE);
+        removeShoppingListButton.setVisibility(View.GONE);
     }
 
     public void removeShoppingListClick(View view) {
         textView.setVisibility(View.VISIBLE);
         textView.setText(":O");
+        mainView.setVisibility(View.VISIBLE);
+        shoppingMenu.setVisibility(View.GONE);
+        confirmShoppingListButton.setVisibility(View.GONE);
+        removeShoppingListButton.setVisibility(View.GONE);
+        shoppingEditText.setText("");
     }
 }

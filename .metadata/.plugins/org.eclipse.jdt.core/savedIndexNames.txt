@@ -1,0 +1,1 @@
+INDEX VERSION 1.134+C:\Users\cooke\Documents\GitHub\Intrakove_recepty_z_lasky\Intrakove_recepty_z_lasky\.metadata\.plugins\org.eclipse.jdt.core
