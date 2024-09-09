@@ -117,19 +117,6 @@
                     android:visibility="visible"
 
                     />
-
-                <TextView
-                    android:id="@+id/recipeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/lobster"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
-                    android:visibility="gone"/>
-
             </LinearLayout>
         </ScrollView>
 
@@ -208,7 +195,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/settings_menu"
         android:layout_marginTop="?attr/actionBarSize"
         android:visibility="gone">
@@ -250,6 +237,30 @@
 
         </TextView>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_marginBottom="20dp"
+            android:text="♫"
+            app:layout_constraintBottom_toBottomOf="@id/settings_menu"
+            app:layout_constraintEnd_toStartOf="@id/sound_bar">
+
+        </TextView>
+
+        <SeekBar
+            android:id="@+id/sound_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:max="100"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/settings_menu">
+
+        </SeekBar>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -271,6 +282,46 @@
         </EditText>
 
     </ScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/item_menu"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/ingredients_menu">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredients_text"
+                android:textSize="26sp"
+                android:fontFamily="@font/dancing_script">
+            </TextView>
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_menu"
+            android:layout_marginBottom="80dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recipe_text"
+                android:textSize="26sp"
+                android:fontFamily="@font/dancing_script">
+            </TextView>
+
+        </ScrollView>
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

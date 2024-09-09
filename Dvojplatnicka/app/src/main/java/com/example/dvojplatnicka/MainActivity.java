@@ -11,6 +11,7 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -35,12 +36,17 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private static final String PREFS_NAME = "MyPrefs";
     private static final String KEY_SHOPPING_LIST = "shopping_list";
 
+
+    private SeekBar volumeSeekBar;
+    private SharedPreferences volumePreferences;
+    private static final String PREF_NAME = "VolumePrefs";
+    private static final String VOLUME_KEY = "volumeLevel";
     private EditText shoppingEditText;
     private Button buttonBack;
     private ImageButton settingsButton;
     private Button confirmShoppingListButton;
     private Button removeShoppingListButton;
-    private TextView textView, menuText;
+    private TextView recipeText, menuText;
     private ExoPlayer player;
     private List<MediaItem> mediaItems;
     private int currentMediaIndex = 0;
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private SharedPreferences.Editor editor;
     private Switch themeSwitch;
     private ScrollView shoppingMenu;
+    private RelativeLayout itemMenu;
 
 
     @Override
@@ -80,6 +87,36 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         player = new ExoPlayer.Builder(this).build();
         PlayerView playerView = findViewById(R.id.player_view);
         playerView.setPlayer(player);
+        volumeSeekBar = findViewById(R.id.sound_bar);
+
+        volumePreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        float savedVolume = volumePreferences.getFloat(VOLUME_KEY, 1.0f);
+
+        player.setVolume(savedVolume);
+        volumeSeekBar.setProgress((int) (savedVolume * 100));
+
+        // Set up SeekBar listener to control volume
+        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float volume = progress / 100f;
+                player.setVolume(volume);  // Set ExoPlayer volume
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Optional: handle start of touch
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Save the volume in SharedPreferences
+                float volume = seekBar.getProgress() / 100f;
+                SharedPreferences.Editor editor = volumePreferences.edit();
+                editor.putFloat(VOLUME_KEY, volume);
+                editor.apply();
+            }
+        });
 
         // Initialize MediaItems
         mediaItems = new ArrayList<>();
@@ -102,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             }
         });
 
+        itemMenu = findViewById(R.id.item_menu);
         shoppingEditText = findViewById(R.id.shopping_edit_text);
         shoppingMenu = findViewById(R.id.shopping_menu);
         themeSwitch = findViewById(R.id.theme_switch);
@@ -109,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         settingsMenu = findViewById(R.id.settings_menu);
         settingsButton = findViewById(R.id.settingsButton);
         menuText = findViewById(R.id.menuText);
-        textView = findViewById(R.id.recipeText);
+        recipeText = findViewById(R.id.recipe_text);
         buttonBack = findViewById(R.id.buttonBack);
         Button mainDishButton = findViewById(R.id.hlavne_jedla);
         Button appetizerButton = findViewById(R.id.predjedla);
@@ -234,28 +272,25 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
 
     public void handleBackButtonClick(View view) {
         // Update UI visibility
-        recyclerView.setVisibility(View.VISIBLE);
         buttonBack.setVisibility(View.GONE);
+        mainView.setVisibility(View.VISIBLE);
         findViewById(R.id.categoryGrid).setVisibility(View.VISIBLE);
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             View child = recyclerView.getChildAt(i);
             child.setVisibility(View.VISIBLE);
         }
-        textView.setText("Vitaj späť :)");
+        itemMenu.setVisibility(View.GONE);
         findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
-        menuText.setText("Menu");
     }
 
     @Override
     public void onItemClick(Item item) {
-        recyclerView.setVisibility(View.GONE);
+        mainView.setVisibility(View.GONE);
 
-        textView.setText(item.getRecipe());
-        textView.setVisibility(View.VISIBLE);
+        recipeText.setText(item.getRecipe());
+        itemMenu.setVisibility(View.VISIBLE);
 
         buttonBack.setVisibility(View.VISIBLE);
-        findViewById(R.id.categoryGrid).setVisibility(View.GONE);
-        findViewById(R.id.likedButton).setVisibility(View.GONE);
         menuText.setText(item.getText());
     }
 
@@ -277,8 +312,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     }
 
     public void confirmShoppingListClick(View view) {
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(":)");
         mainView.setVisibility(View.VISIBLE);
         shoppingMenu.setVisibility(View.GONE);
         confirmShoppingListButton.setVisibility(View.GONE);
@@ -286,8 +319,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     }
 
     public void removeShoppingListClick(View view) {
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(":O");
         mainView.setVisibility(View.VISIBLE);
         shoppingMenu.setVisibility(View.GONE);
         confirmShoppingListButton.setVisibility(View.GONE);
