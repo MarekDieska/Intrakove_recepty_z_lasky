@@ -261,6 +261,29 @@
 
         </SeekBar>
 
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:id="@+id/fontsize_picker"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="@id/sound_bar"
+            app:layout_constraintEnd_toEndOf="@id/sound_bar"
+            app:layout_constraintBottom_toTopOf="@id/sound_bar">
+        </NumberPicker>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginBottom="60dp"
+            android:text="✑"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toStartOf="@id/fontsize_picker"
+            app:layout_constraintBottom_toTopOf="@id/sound_bar">
+
+        </TextView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView

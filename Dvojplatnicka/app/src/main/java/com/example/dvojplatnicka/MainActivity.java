@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private static final String PREFS_NAME = "MyPrefs";
     private static final String KEY_SHOPPING_LIST = "shopping_list";
 
-
+    private static final String FONTPREF_NAME = "FontSizePrefs";
+    private static final String FONT_SIZE_KEY = "fontSize";
+    private SharedPreferences fontsizePreferences;
+    private NumberPicker fontsizePicker;
     private SeekBar volumeSeekBar;
     private SharedPreferences volumePreferences;
     private static final String PREF_NAME = "VolumePrefs";
@@ -139,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             }
         });
 
+        fontsizePicker = findViewById(R.id.fontsize_picker);
         itemMenu = findViewById(R.id.item_menu);
         shoppingEditText = findViewById(R.id.shopping_edit_text);
         shoppingMenu = findViewById(R.id.shopping_menu);
@@ -169,6 +174,26 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         shoppingListButton.setOnClickListener(this::shoppingListClick);
         confirmShoppingListButton.setOnClickListener(this::confirmShoppingListClick);
         removeShoppingListButton.setOnClickListener(this::removeShoppingListClick);
+
+        fontsizePreferences = getSharedPreferences(FONTPREF_NAME, MODE_PRIVATE);
+
+        int savedFontSize = fontsizePreferences.getInt(FONT_SIZE_KEY, 16);
+        recipeText.setTextSize(savedFontSize);
+
+        fontsizePicker.setMaxValue(32);
+        fontsizePicker.setMinValue(11);
+
+        fontsizePicker.setValue(savedFontSize);  // Set current font size
+
+        // Change font size based on NumberPicker selection
+        fontsizePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            // Update the TextView with the new font size
+            recipeText.setTextSize(newVal);
+            // Save the new font size to SharedPreferences
+            SharedPreferences.Editor editor = fontsizePreferences.edit();
+            editor.putInt(FONT_SIZE_KEY, newVal);
+            editor.apply();
+        });
 
         themeSwitch.setChecked(isDarkTheme); // Set initial state based on current theme
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -244,6 +269,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
             settings = true;
             shoppingListGrid.setVisibility(View.GONE);
             shoppingMenu.setVisibility(View.GONE);
+            itemMenu.setVisibility(View.GONE);
+            buttonBack.setVisibility(View.GONE);
         }
         else {
             mainView.setVisibility(View.VISIBLE);
