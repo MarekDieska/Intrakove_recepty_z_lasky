@@ -2,6 +2,7 @@ package com.example.dvojplatnicka;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashSet;
@@ -27,13 +30,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private static final String PREFS_NAME = "liked_recipes_prefs";
     private static final String LIKED_RECIPES_KEY = "liked_recipes";
     private static final String TAG = "Adapter";
+    private int spanCount;  // Number of columns
+    private int spacing;    // Spacing between items
 
-    public Adapter(List<Item> items, OnItemClickListener itemClickListener, OnLikeClickListener likeClickListener, Set<String> likedRecipes, Context context) {
+    public Adapter(List<Item> items, OnItemClickListener itemClickListener, OnLikeClickListener likeClickListener, Set<String> likedRecipes, Context context, int spanCount, int spacing) {
         this.items = items;
         this.itemClickListener = itemClickListener;
         this.likeClickListener = likeClickListener;
         this.likedRecipes = likedRecipes;
         this.context = context.getApplicationContext(); // Use application context for SharedPreferences
+        this.spanCount = spanCount;
+        this.spacing = spacing;
+
         if (this.context == null) {
             throw new IllegalArgumentException("Context cannot be null");
         }
@@ -59,7 +67,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Log.d(TAG, "Loaded liked recipes: " + likedRecipes);
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,11 +74,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return new ViewHolder(view, context);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = items.get(position);
+        int columnWidth = calculateItemSize();
+
+        // Set the width and height of the FrameLayout (menu_item_button) dynamically
+        ViewGroup.LayoutParams layoutParams = holder.constraintLayoutContainer.getLayoutParams();// Set height based on calculated column width
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
+        layoutParams.width = columnWidth;
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = columnWidth-50; // or any specific value
+        params.height = columnWidth-50; // or any specific value;
+        holder.cardView.setLayoutParams(params);
+        holder.constraintLayoutContainer.setLayoutParams(layoutParams);
+
+        // Continue binding the rest of the item
         holder.bind(item, itemClickListener, likeClickListener);
     }
+
 
     @Override
     public int getItemCount() {
@@ -79,25 +99,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        FrameLayout frameLayoutContainer;
-        Context context;
+        CardView cardView;
+        ConstraintLayout constraintLayoutContainer;
+        ImageButton recipeButton;
+        TextView textView;
+        ImageButton likeButton;
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
-            frameLayoutContainer = itemView.findViewById(R.id.frameLayoutContainer);
-            this.context = context;
+            constraintLayoutContainer = itemView.findViewById(R.id.constraintLayoutContainer); // Ensure this ID exists
+            recipeButton = itemView.findViewById(R.id.button);
+            textView = itemView.findViewById(R.id.textView);
+            likeButton = itemView.findViewById(R.id.like_button);
+            cardView = itemView.findViewById(R.id.cardView);
         }
 
         public void bind(Item item, OnItemClickListener itemClickListener, OnLikeClickListener likeClickListener) {
-            frameLayoutContainer.removeAllViews();
-
-            View itemView = LayoutInflater.from(frameLayoutContainer.getContext())
-                    .inflate(R.layout.item_frame, frameLayoutContainer, false);
-
-            ImageButton recipeButton = itemView.findViewById(R.id.button);
-            TextView textView = itemView.findViewById(R.id.textView);
-            ImageButton likeButton = itemView.findViewById(R.id.like_button);
-
             recipeButton.setImageResource(item.getImageResId());
             textView.setText(item.getText());
 
@@ -130,8 +147,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     likeClickListener.onLikeClick(item.getText(), item.isLiked());
                 }
             });
-
-            frameLayoutContainer.addView(itemView);
         }
     }
 
@@ -141,5 +156,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public interface OnLikeClickListener {
         void onLikeClick(String recipeName, boolean isLiked);
+    }
+
+    // Method to calculate the size of each item based on the span count and spacing
+    private int calculateItemSize() {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
+
+        // Include spacing on both sides and the number of spaces between items
+        int totalSpacing = spacing * (spanCount + 1);
+
+        return (screenWidth - totalSpacing) / spanCount;
     }
 }

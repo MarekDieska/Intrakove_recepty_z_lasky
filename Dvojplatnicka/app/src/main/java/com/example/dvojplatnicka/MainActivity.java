@@ -1,31 +1,26 @@
 package com.example.dvojplatnicka;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.EditText;
-
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,322 +29,323 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener, Adapter.OnLikeClickListener {
 
-    private static final String PREFS_NAME = "MyPrefs";
-    private static final String KEY_SHOPPING_LIST = "shopping_list";
-
-    private static final String FONTPREF_NAME = "FontSizePrefs";
-    private static final String FONT_SIZE_KEY = "fontSize";
-    private SharedPreferences fontsizePreferences;
-    private NumberPicker fontsizePicker;
-    private SeekBar volumeSeekBar;
-    private SharedPreferences volumePreferences;
-    private static final String PREF_NAME = "VolumePrefs";
-    private static final String VOLUME_KEY = "volumeLevel";
+    // Manager classes for handling different features
+    private MusicPlayerManager musicPlayerManager;
+    private ThemeManager themeManager;
+    private FontSizeManager fontSizeManager;
+    private ShoppingListManager shoppingListManager;
+    private GridLayout shoppingListGrid;
+    private Button confirmButton;
+    private Button shoppingListButton;
+    private Button removeButton;
     private EditText shoppingEditText;
+
     private Button buttonBack;
     private ImageButton settingsButton;
-    private Button confirmShoppingListButton;
-    private Button removeShoppingListButton;
     private TextView recipeText, menuText;
-    private ExoPlayer player;
-    private List<MediaItem> mediaItems;
-    private int currentMediaIndex = 0;
     private RecyclerView recyclerView;
-    private GridLayout shoppingListGrid;
     private ConstraintLayout settingsMenu;
     private RelativeLayout mainView;
+    private Switch themeSwitch;
+    private RelativeLayout itemMenu;
+    private ScrollView shoppingMenu;
+    private ImageButton likedButton;
+    private NumberPicker fontSizePicker;
+    private RadioGroup radioGroup;
+
+    private List<Item> itemList = new ArrayList<>();
     private Adapter adapter;
-    private List<Item> itemList;
     private Set<String> likedRecipes;
     private boolean settings = false;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-    private Switch themeSwitch;
-    private ScrollView shoppingMenu;
-    private RelativeLayout itemMenu;
+    private int spanCount = 2;
 
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        likedRecipes = new HashSet<>();
-
-        sharedPreferences = getSharedPreferences("ThemePref", MODE_PRIVATE);
-        boolean isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false);
-        if (isDarkTheme) {
-            setTheme(R.style.Theme_night);
-        } else {
-            setTheme(R.style.Theme_day);
-        }
-
+        themeManager = new ThemeManager(this);
+        themeManager.applyTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         likedRecipes = new HashSet<>();
 
-        // Initialize ExoPlayer
-        player = new ExoPlayer.Builder(this).build();
-        PlayerView playerView = findViewById(R.id.player_view);
-        playerView.setPlayer(player);
-        volumeSeekBar = findViewById(R.id.sound_bar);
+        // Initialize managers
+        musicPlayerManager = new MusicPlayerManager(this);
+        fontSizeManager = new FontSizeManager(this);
+        shoppingListManager = new ShoppingListManager(this);
 
-        volumePreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        float savedVolume = volumePreferences.getFloat(VOLUME_KEY, 1.0f);
+        recipeText = findViewById(R.id.recipe_text);
+        fontSizePicker = findViewById(R.id.fontsize_picker);
 
-        player.setVolume(savedVolume);
-        volumeSeekBar.setProgress((int) (savedVolume * 100));
+        fontSizePicker.setMinValue(20); // Minimum font size
+        fontSizePicker.setMaxValue(48); // Maximum font size
+        fontSizePicker.setValue(fontSizeManager.getFontSize());
 
-        // Set up SeekBar listener to control volume
-        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                float volume = progress / 100f;
-                player.setVolume(volume);  // Set ExoPlayer volume
-            }
+        fontSizeManager.applyFontSize(recipeText);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // Optional: handle start of touch
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // Save the volume in SharedPreferences
-                float volume = seekBar.getProgress() / 100f;
-                SharedPreferences.Editor editor = volumePreferences.edit();
-                editor.putFloat(VOLUME_KEY, volume);
-                editor.apply();
-            }
+        // Handle NumberPicker value changes
+        fontSizePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            fontSizeManager.saveFontSize(newVal);
+            recipeText.setTextSize(newVal);
         });
 
-        // Initialize MediaItems
-        mediaItems = new ArrayList<>();
-        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.viki_hudba)));
-        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marek_hudba)));
-        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.emka_hudba)));
-        mediaItems.add(MediaItem.fromUri(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marek_hudba2)));
+        initShoppingListGrid();
 
-        // Set initial media item
-        player.setMediaItem(mediaItems.get(currentMediaIndex));
-        player.prepare();
-        player.play();
+        // Load shopping list from SharedPreferences
+        shoppingEditText.setText(shoppingListManager.loadShoppingList());
 
-        player.addListener(new Player.Listener() {
-            @Override
-            public void onPlaybackStateChanged(int playbackState) {
-                if (playbackState == Player.STATE_ENDED) {
-                    handleLoopEnd();
-                }
-            }
+        // Initialize UI elements
+        initUI();
+
+        int spacing = 10;
+        int staticMargin = 10;
+
+        radioGroup = findViewById(R.id.radioGroup);
+        spanCount = getSavedSpanCount(); // Get the saved span count
+
+        // Set up GridLayoutManager
+        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Add item decoration
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, staticMargin, true));
+
+        // Set up Adapter
+        adapter = new Adapter(itemList, this, this, likedRecipes, this, spanCount, spacing);
+        recyclerView.setAdapter(adapter);
+
+        // Handle buttons
+        setupClickListeners();
+
+        // Set up RadioGroup listener
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            handleSpanChange(checkedId, spacing, staticMargin);
         });
+    }
 
-        fontsizePicker = findViewById(R.id.fontsize_picker);
-        itemMenu = findViewById(R.id.item_menu);
-        shoppingEditText = findViewById(R.id.shopping_edit_text);
-        shoppingMenu = findViewById(R.id.shopping_menu);
-        themeSwitch = findViewById(R.id.theme_switch);
-        mainView = findViewById(R.id.mainView);
-        settingsMenu = findViewById(R.id.settings_menu);
+    private void saveSelectedOption(int selectedOptionId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("SpanPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Determine spanCount based on selected option
+        int spanCount;
+        if (selectedOptionId == R.id.radio_option_1) {
+            spanCount = 2;
+        } else if (selectedOptionId == R.id.radio_option_2) {
+            spanCount = 3;
+        } else if (selectedOptionId == R.id.radio_option_3) {
+            spanCount = 4;
+        } else {
+            spanCount = 2; // Default value
+        }
+
+        editor.putInt("selected_radio_option", spanCount);
+        editor.apply(); // Save changes asynchronously
+    }
+
+    private int getSavedSpanCount() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SpanPreferences", MODE_PRIVATE);
+        return sharedPreferences.getInt("selected_radio_option", 2); // Default to 2 if not found
+    }
+
+    private void initUI() {
+        // Initialize the UI elements
         settingsButton = findViewById(R.id.settingsButton);
         menuText = findViewById(R.id.menuText);
         recipeText = findViewById(R.id.recipe_text);
         buttonBack = findViewById(R.id.buttonBack);
-        Button mainDishButton = findViewById(R.id.hlavne_jedla);
-        Button appetizerButton = findViewById(R.id.predjedla);
-        Button dessertButton = findViewById(R.id.dezerty);
-        ImageButton likeButton = findViewById(R.id.likedButton);
-        shoppingListGrid = findViewById(R.id.shoppingListGrid);
-        confirmShoppingListButton = findViewById(R.id.confirm_button);
-        removeShoppingListButton = findViewById(R.id.remove_button);
-        Button shoppingListButton = findViewById(R.id.shoppingListButton);
         recyclerView = findViewById(R.id.recyclerView);
+        mainView = findViewById(R.id.mainView);
+        settingsMenu = findViewById(R.id.settings_menu);
+        itemMenu = findViewById(R.id.item_menu);
+        themeSwitch = findViewById(R.id.theme_switch);
+        likedButton = findViewById(R.id.likedButton);
 
-        // Set Click Listeners
+        themeSwitch.setChecked(getCurrentThemeState());
+
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            themeManager.toggleTheme(isChecked);
+            recreate();
+        });
+    }
+
+    private boolean getCurrentThemeState() {
+        // Retrieve the current theme state from SharedPreferences
+        return getSharedPreferences("ThemePref", MODE_PRIVATE)
+                .getBoolean("isDarkTheme", false);
+    }
+
+    private void initShoppingListGrid() {
+        radioGroup = findViewById(R.id.radioGroup);
+        shoppingListGrid = findViewById(R.id.shoppingListGrid);
+        shoppingListGrid.setVisibility(View.VISIBLE);
+        confirmButton = findViewById(R.id.confirm_button);
+        shoppingListButton = findViewById(R.id.shoppingListButton);
+        removeButton = findViewById(R.id.remove_button);
+        shoppingEditText = findViewById(R.id.shopping_edit_text);
+        shoppingMenu = findViewById(R.id.shopping_menu);
+
+        confirmButton.setOnClickListener(this::confirmShoppingListClick);
+        shoppingListButton.setOnClickListener(this::shoppingListClick);
+        removeButton.setOnClickListener(this::removeShoppingListClick);
+    }
+
+    public void confirmShoppingListClick(View view) {
+        // Save shopping list to SharedPreferences
+        shoppingListManager.saveShoppingList(shoppingEditText.getText().toString());
+        shoppingListButton.setVisibility(View.VISIBLE);
+        confirmButton.setVisibility(View.GONE);
+        removeButton.setVisibility(View.GONE);
+        mainView.setVisibility(View.VISIBLE);
+        shoppingMenu.setVisibility(View.GONE);
+        Toast.makeText(this, "list uložený", Toast.LENGTH_SHORT).show();
+    }
+
+    public void shoppingListClick(View view) {
+        // Toggle visibility of shopping list grid
+        shoppingListButton.setVisibility(View.GONE);
+        confirmButton.setVisibility(View.VISIBLE);
+        removeButton.setVisibility(View.VISIBLE);
+        shoppingEditText.setVisibility(View.VISIBLE);
+        mainView.setVisibility(View.GONE);
+        shoppingMenu.setVisibility(View.VISIBLE);
+    }
+
+    public void removeShoppingListClick(View view) {
+        // Clear the shopping list and update UI
+        shoppingListManager.clearShoppingList();
+        shoppingEditText.setText("");
+        shoppingListButton.setVisibility(View.VISIBLE);
+        confirmButton.setVisibility(View.GONE);
+        removeButton.setVisibility(View.GONE);
+        mainView.setVisibility(View.VISIBLE);
+        shoppingMenu.setVisibility(View.GONE);
+        Toast.makeText(this, "list vymazaný", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupClickListeners() {
+        // Set up click listeners for buttons and switches
         settingsButton.setOnClickListener(this::handleSettingsClick);
         buttonBack.setOnClickListener(this::handleBackButtonClick);
-        mainDishButton.setOnClickListener(v -> handleCategoryButtonClick("mainDish"));
-        appetizerButton.setOnClickListener(v -> handleCategoryButtonClick("appetizer"));
-        dessertButton.setOnClickListener(v -> handleCategoryButtonClick("dessert"));
-        likeButton.setOnClickListener(v -> handleCategoryButtonClick("liked"));
-        shoppingListButton.setOnClickListener(this::shoppingListClick);
-        confirmShoppingListButton.setOnClickListener(this::confirmShoppingListClick);
-        removeShoppingListButton.setOnClickListener(this::removeShoppingListClick);
+        likedButton.setOnClickListener(this::handleCategoryButtonClick);
 
-        fontsizePreferences = getSharedPreferences(FONTPREF_NAME, MODE_PRIVATE);
-
-        int savedFontSize = fontsizePreferences.getInt(FONT_SIZE_KEY, 16);
-        recipeText.setTextSize(savedFontSize);
-
-        fontsizePicker.setMaxValue(32);
-        fontsizePicker.setMinValue(11);
-
-        fontsizePicker.setValue(savedFontSize);  // Set current font size
-
-        // Change font size based on NumberPicker selection
-        fontsizePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            // Update the TextView with the new font size
-            recipeText.setTextSize(newVal);
-            // Save the new font size to SharedPreferences
-            SharedPreferences.Editor editor = fontsizePreferences.edit();
-            editor.putInt(FONT_SIZE_KEY, newVal);
-            editor.apply();
-        });
-
-        themeSwitch.setChecked(isDarkTheme); // Set initial state based on current theme
+        // Switch to toggle dark/light theme
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            editor = sharedPreferences.edit();
-            editor.putBoolean("isDarkTheme", isChecked);
-            editor.apply();
-            recreate(); // Recreate activity to apply the new theme
+            themeManager.toggleTheme(isChecked);
+            recreate(); // Recreate the activity to apply the new theme
         });
+    }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String savedText = sharedPreferences.getString(KEY_SHOPPING_LIST, ""); // Default is empty string
-        shoppingEditText.setText(savedText);
+    private void handleSpanChange(int checkedId, int spacing, int staticMargin) {
+        if (checkedId == R.id.radio_option_1) {
+            spanCount = 2;
+            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
+        } else if (checkedId == R.id.radio_option_2) {
+            spanCount = 3;
+            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
+        } else if (checkedId == R.id.radio_option_3) {
+            spanCount = 4;
+            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
+        }
 
-        // Initialize RecyclerView
-        int spanCount = 3; // Number of columns
-        int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_item_spacing); // Define this in your dimens.xml
-        recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing));
+        // Save the selected option
+        saveSelectedOption(checkedId);
 
-        // Initialize the item list and adapter
-        itemList = new ArrayList<>();
-        adapter = new Adapter(itemList, this, this, likedRecipes, this); // Pass the current context
+        // Update the GridLayoutManager span count
+        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Optionally notify the adapter
+        adapter.notifyDataSetChanged();
+
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, staticMargin, true));
+
+        // Set up Adapter
+        adapter = new Adapter(itemList, this, this, likedRecipes, this, spanCount, spacing);
         recyclerView.setAdapter(adapter);
-
-        // Load initial category
-        handleCategoryButtonClick("all");
-    }
-
-
-    private void handleLoopEnd() {
-        currentMediaIndex = (currentMediaIndex + 1) % mediaItems.size();
-        player.setMediaItem(mediaItems.get(currentMediaIndex));
-        player.prepare();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (player != null) {
-            player.setPlayWhenReady(false);
-        }
-
-        String userInput = shoppingEditText.getText().toString();
-
-        // Save the text in SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_SHOPPING_LIST, userInput); // Store the user input
-        editor.apply();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (player != null) {
-            player.setPlayWhenReady(true);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (player != null) {
-            player.release();
-            player = null;
-        }
     }
 
     public void handleSettingsClick(View view) {
-        if(!settings) {
-            mainView.setVisibility(View.GONE);
-            settingsMenu.setVisibility(View.VISIBLE);
-            settings = true;
-            shoppingListGrid.setVisibility(View.GONE);
+        // Toggle between settings view and main view
+        settings = !settings;
+        mainView.setVisibility(settings ? View.GONE : View.VISIBLE);
+        shoppingListGrid.setVisibility(settings ? View.GONE : View.VISIBLE);
+        settingsMenu.setVisibility(settings ? View.VISIBLE : View.GONE);
+        if(shoppingMenu.getVisibility() == View.VISIBLE){
             shoppingMenu.setVisibility(View.GONE);
+        }
+        if(itemMenu.getVisibility() == View.VISIBLE){
             itemMenu.setVisibility(View.GONE);
             buttonBack.setVisibility(View.GONE);
         }
-        else {
-            mainView.setVisibility(View.VISIBLE);
-            settingsMenu.setVisibility(View.GONE);
-            settings = false;
-            shoppingListGrid.setVisibility(View.VISIBLE);
+        if(confirmButton.getVisibility() == View.VISIBLE){
+            confirmButton.setVisibility(View.GONE);
+            shoppingListButton.setVisibility(View.VISIBLE);
+            removeButton.setVisibility(View.GONE);
         }
-
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void handleCategoryButtonClick(String categoryTag) {
-        // Clear the list only for non-"liked" categories
-
-        AdjustList.adjust(categoryTag, itemList, likedRecipes, this);
-
-        // Notify adapter of changes
-        adapter.notifyDataSetChanged();
-
-        // Update UI visibility
-        recyclerView.setVisibility(View.VISIBLE);
-        shoppingListGrid.setVisibility(View.VISIBLE);
+    public void handleCategoryButtonClick(View view) {
+        String categoryTag = (String) view.getTag();
+        if (categoryTag != null && !categoryTag.isEmpty()) {
+            Toast.makeText(this, (String) view.getTag(), Toast.LENGTH_SHORT).show();
+            // Adjust the item list based on the selected category tag
+            AdjustList.adjust(categoryTag, itemList, likedRecipes, this);
+            adapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            // Handle the case where no tag is assigned (if needed)
+            Log.e("MainActivity", "No tag found for the clicked button.");
+        }
     }
-
-
 
     public void handleBackButtonClick(View view) {
-        // Update UI visibility
+        // Handle back button click to show the main view
         buttonBack.setVisibility(View.GONE);
         mainView.setVisibility(View.VISIBLE);
         findViewById(R.id.categoryGrid).setVisibility(View.VISIBLE);
-        for (int i = 0; i < recyclerView.getChildCount(); i++) {
-            View child = recyclerView.getChildAt(i);
-            child.setVisibility(View.VISIBLE);
-        }
         itemMenu.setVisibility(View.GONE);
         findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onItemClick(Item item) {
+        // Handle item click to show the detailed recipe
         mainView.setVisibility(View.GONE);
-
         recipeText.setText(item.getRecipe());
         itemMenu.setVisibility(View.VISIBLE);
-
         buttonBack.setVisibility(View.VISIBLE);
         menuText.setText(item.getText());
     }
 
     @Override
     public void onLikeClick(String recipeName, boolean isLiked) {
+        // Handle liking or unliking a recipe
         if (isLiked) {
             likedRecipes.add(recipeName);
+            Toast.makeText(this, "\uD83D\uDC9C", Toast.LENGTH_SHORT).show();
         } else {
             likedRecipes.remove(recipeName);
         }
         adapter.saveLikedRecipes();
     }
 
-    public void shoppingListClick(View view) {
-        confirmShoppingListButton.setVisibility(View.VISIBLE);
-        removeShoppingListButton.setVisibility(View.VISIBLE);
-        mainView.setVisibility(View.GONE);
-        shoppingMenu.setVisibility(View.VISIBLE);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        musicPlayerManager.pausePlayer();
+        shoppingListManager.saveShoppingList(shoppingEditText.getText().toString());
     }
 
-    public void confirmShoppingListClick(View view) {
-        mainView.setVisibility(View.VISIBLE);
-        shoppingMenu.setVisibility(View.GONE);
-        confirmShoppingListButton.setVisibility(View.GONE);
-        removeShoppingListButton.setVisibility(View.GONE);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        musicPlayerManager.resumePlayer();
     }
 
-    public void removeShoppingListClick(View view) {
-        mainView.setVisibility(View.VISIBLE);
-        shoppingMenu.setVisibility(View.GONE);
-        confirmShoppingListButton.setVisibility(View.GONE);
-        removeShoppingListButton.setVisibility(View.GONE);
-        shoppingEditText.setText("");
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        musicPlayerManager.releasePlayer();
     }
 }
