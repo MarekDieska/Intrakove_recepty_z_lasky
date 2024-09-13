@@ -119,7 +119,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             textView.setText(item.getText());
 
             // Set the like button image based on the item's liked status
-            likeButton.setImageResource(likedRecipes.contains(item.getText().trim()) ? R.drawable.liked : R.drawable.not_liked);
+            likeButton.setImageResource(likedRecipes.contains(item.getText().trim()) ? R.drawable.like_button : R.drawable.not_like_button);
 
             // Handle the recipe button click
             recipeButton.setOnClickListener(v -> {
@@ -133,11 +133,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 item.setLiked(!item.isLiked());
                 if (item.isLiked()) {
                     likedRecipes.add(item.getText().trim()); // Trim the text
-                    likeButton.setImageResource(R.drawable.liked);
+                    likeButton.setImageResource(R.drawable.like_button);
                     Log.d(TAG, "Added to liked recipes: [" + item.getText().trim() + "]");
                 } else {
                     likedRecipes.remove(item.getText().trim()); // Trim the text
-                    likeButton.setImageResource(R.drawable.not_liked);
+                    likeButton.setImageResource(R.drawable.not_like_button);
                     Log.d(TAG, "Removed from liked recipes: [" + item.getText().trim() + "]");
                 }
 

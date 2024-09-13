@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo_dvojplatnicka"
+        android:icon="@drawable/dvojplatnicka_logo"
         android:label="Dvojplatnička"
-        android:roundIcon="@drawable/logo_dvojplatnicka"
+        android:roundIcon="@drawable/dvojplatnicka_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme_night"
         tools:targetApi="31">

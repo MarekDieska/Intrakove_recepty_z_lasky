@@ -43,6 +43,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/constraintLayout" />
 
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toEndOf="@id/menuText"
+                app:layout_constraintTop_toTopOf="@id/menuText"
+                android:contentDescription="obrazok"
+                android:src="@drawable/dvojplatnicka_logo"
+                android:visibility="visible">
+            </ImageView>
+
 
             <!-- Button Grid Layout -->
             <GridLayout
@@ -181,7 +192,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:contentDescription="@string/showliked"
         android:scaleType="fitCenter"
-        android:src="@drawable/liked"
+        android:src="@drawable/like_button"
         android:text="" />
 
     <Button

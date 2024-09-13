@@ -46,10 +46,9 @@
     <ImageButton
         android:id="@+id/like_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/not_liked"
-        android:layout_marginTop="8dp"
+        android:src="@drawable/not_like_button"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toBottomOf="@id/cardView"
         android:gravity="center_horizontal"

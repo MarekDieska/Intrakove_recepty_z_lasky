@@ -306,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         findViewById(R.id.categoryGrid).setVisibility(View.VISIBLE);
         itemMenu.setVisibility(View.GONE);
         findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
+        menuText.setText("Menu");
     }
 
     @Override
