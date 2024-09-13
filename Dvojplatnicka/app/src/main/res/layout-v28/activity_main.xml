@@ -18,41 +18,49 @@
         android:layout_height="wrap_content"
         layout="@layout/custom_toolbar" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_layout"
+        android:layout_marginTop="65dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/menuText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:layout_marginTop="15dp"
+            android:textSize="32sp"
+            android:fontFamily="@font/lobster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:ignore="NotSibling" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@id/menuText"
+            app:layout_constraintTop_toTopOf="@id/menuText"
+            android:contentDescription="obrazok"
+            android:src="@drawable/dvojplatnicka_logo"
+            android:visibility="visible">
+        </ImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mainView"
-        android:layout_alignTop="@id/toolbar">
+        android:layout_alignTop="@id/menu_layout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize">
-
-            <!-- TextView for menu header -->
-            <TextView
-                android:id="@+id/menuText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Menu"
-                android:layout_marginTop="15dp"
-                android:textSize="32sp"
-                android:fontFamily="@font/lobster"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/constraintLayout" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintStart_toEndOf="@id/menuText"
-                app:layout_constraintTop_toTopOf="@id/menuText"
-                android:contentDescription="obrazok"
-                android:src="@drawable/dvojplatnicka_logo"
-                android:visibility="visible">
-            </ImageView>
 
 
             <!-- Button Grid Layout -->
@@ -67,7 +75,8 @@
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menuText">
+                app:layout_constraintTop_toBottomOf="@id/menu_layout"
+                tools:ignore="NotSibling">
 
                 <Button
                     android:id="@+id/predjedla"
@@ -215,45 +224,6 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:visibility="gone">
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/settings_text"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:text="Nastavenia"
-            android:fontFamily="@font/lobster"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_menu">
-        </TextView>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:id="@+id/theme_switch"
-            android:thumbTint="?attr/colorPrimaryVariant"
-            android:trackTint="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/settings_text"
-            app:layout_constraintEnd_toEndOf="@id/settings_text"
-            android:layout_marginTop="10dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml">
-
-        </Switch>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:text="☽"
-            app:layout_constraintTop_toBottomOf="@id/settings_text"
-            app:layout_constraintEnd_toStartOf="@id/theme_switch">
-
-        </TextView>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -304,13 +274,38 @@
 
         </TextView>
 
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:id="@+id/theme_switch"
+                android:thumbTint="?attr/colorPrimaryVariant"
+                android:trackTint="?attr/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@id/radioGroup"
+                app:layout_constraintEnd_toEndOf="parent">
+            </Switch>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="☽"
+            app:layout_constraintTop_toTopOf="@id/theme_switch"
+            app:layout_constraintEnd_toStartOf="@id/theme_switch"
+            tools:ignore="NotSibling">
+
+        </TextView>
+
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/theme_switch">
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toTopOf="@id/fontsize_picker">
 
             <!-- First option -->
             <RadioButton
@@ -362,10 +357,10 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/item_menu"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="115dp"
         android:visibility="gone">
 
         <ScrollView
@@ -377,6 +372,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/ingredients_text"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:textSize="26sp"
                 android:fontFamily="@font/dancing_script">
             </TextView>
@@ -386,6 +383,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recipe_menu"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="80dp">
 
             <TextView

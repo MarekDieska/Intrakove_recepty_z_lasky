@@ -239,13 +239,10 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private void handleSpanChange(int checkedId, int spacing, int staticMargin) {
         if (checkedId == R.id.radio_option_1) {
             spanCount = 2;
-            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
         } else if (checkedId == R.id.radio_option_2) {
             spanCount = 3;
-            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
         } else if (checkedId == R.id.radio_option_3) {
             spanCount = 4;
-            Toast.makeText(this, "Rozloženie zmenené", Toast.LENGTH_SHORT).show();
         }
 
         // Save the selected option
@@ -271,6 +268,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         mainView.setVisibility(settings ? View.GONE : View.VISIBLE);
         shoppingListGrid.setVisibility(settings ? View.GONE : View.VISIBLE);
         settingsMenu.setVisibility(settings ? View.VISIBLE : View.GONE);
+        menuText.setText(settings ? "Nastavenia" : "Menu");
         if(shoppingMenu.getVisibility() == View.VISIBLE){
             shoppingMenu.setVisibility(View.GONE);
         }

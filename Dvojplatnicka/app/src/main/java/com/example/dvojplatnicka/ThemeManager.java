@@ -20,7 +20,6 @@ public class ThemeManager {
 
     public void applyTheme() {
         boolean isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false);
-        Log.d("ThemeManager", "Applying theme: " + (isDarkTheme ? "Dark" : "Light"));
         if (isDarkTheme) {
             activity.setTheme(R.style.Theme_night);
         } else {
