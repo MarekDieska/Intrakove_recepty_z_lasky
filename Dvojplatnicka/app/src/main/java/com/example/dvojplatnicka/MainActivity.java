@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private Button removeButton;
     private EditText shoppingEditText;
 
-    private Button buttonBack;
+    private ImageButton buttonBack;
     private ImageButton settingsButton;
     private TextView recipeText, menuText;
     private RecyclerView recyclerView;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         } else if (selectedOptionId == R.id.radio_option_3) {
             spanCount = 4;
         } else {
-            spanCount = 2; // Default value
+            spanCount = 3; // Default value
         }
 
         editor.putInt("selected_radio_option", spanCount);
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
 
     private int getSavedSpanCount() {
         SharedPreferences sharedPreferences = getSharedPreferences("SpanPreferences", MODE_PRIVATE);
-        return sharedPreferences.getInt("selected_radio_option", 2); // Default to 2 if not found
+        return sharedPreferences.getInt("selected_radio_option", 3); // Default to 2 if not found
     }
 
     private void initUI() {
@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         shoppingEditText.setVisibility(View.VISIBLE);
         mainView.setVisibility(View.GONE);
         shoppingMenu.setVisibility(View.VISIBLE);
+        menuText.setText("Nákupný zoznam");
     }
 
     public void removeShoppingListClick(View view) {
@@ -305,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         itemMenu.setVisibility(View.GONE);
         findViewById(R.id.likedButton).setVisibility(View.VISIBLE);
         menuText.setText("Menu");
+        shoppingListButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -315,6 +317,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         itemMenu.setVisibility(View.VISIBLE);
         buttonBack.setVisibility(View.VISIBLE);
         menuText.setText(item.getText());
+        shoppingListButton.setVisibility(View.GONE);
     }
 
     @Override

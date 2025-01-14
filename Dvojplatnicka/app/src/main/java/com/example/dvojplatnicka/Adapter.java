@@ -164,7 +164,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         int screenWidth = displayMetrics.widthPixels;
 
         // Include spacing on both sides and the number of spaces between items
-        int totalSpacing = spacing * (spanCount + 1);
+        int totalSpacing = spacing * (spanCount);
 
         return (screenWidth - totalSpacing) / spanCount;
     }

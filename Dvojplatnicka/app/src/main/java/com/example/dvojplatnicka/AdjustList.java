@@ -40,6 +40,14 @@ public class AdjustList {
                 itemList.add(new Item(R.drawable.kari_jablko, "Kari s jablkom", R.id.button, context.getString(R.string.kari_jablko)));
                 itemList.add(new Item(R.drawable.segedinsky_gulas, "Segedínsky guláš", R.id.button, context.getString(R.string.segedinsky_gulas)));
                 itemList.add(new Item(R.drawable.pecienka_ryza, "Pečienka s ryžou", R.id.button, context.getString(R.string.pecienka_ryza)));
+                itemList.add(new Item(R.drawable.mexicky_gulas, "Mexický Guláš", R.id.button, context.getString(R.string.mexicky_gulas)));
+                itemList.add(new Item(R.drawable.halusky, "Bryndzové halušky", R.id.button, context.getString(R.string.bryndzove_halusky)));
+                itemList.add(new Item(R.drawable.bryndzove_pirohy, "Bryndzové pirohy", R.id.button, context.getString(R.string.bryndzove_pirohy)));
+                itemList.add(new Item(R.drawable.kotlikovy_gulas, "Kotlíkový guláš", R.id.button, context.getString(R.string.kotlikovy_gulas)));
+                itemList.add(new Item(R.drawable.svieckova, "Sviečková", R.id.button, context.getString(R.string.svieckova)));
+                itemList.add(new Item(R.drawable.manti, "Manti", R.id.button, context.getString(R.string.manti)));
+                itemList.add(new Item(R.drawable.surimi_cestoviny, "Surimi cestoviny", R.id.button, context.getString(R.string.surimi_cestoviny)));
+                itemList.add(new Item(R.drawable.rostenka, "Bravčová roštenka", R.id.button, context.getString(R.string.rostenka)));
                 break;
             case "predjedlá":
                 itemList.add(new Item(R.drawable.placky, "Placky", R.id.button, context.getString(R.string.placky)));
@@ -48,6 +56,9 @@ public class AdjustList {
                 itemList.add(new Item(R.drawable.placky_naan, "Placky naan", R.id.button, context.getString(R.string.placky_naan)));
                 itemList.add(new Item(R.drawable.zapekanky, "Zapekanky", R.id.button, context.getString(R.string.zapekanky)));
                 itemList.add(new Item(R.drawable.tortilla_placky, "Tortilla placky", R.id.button, context.getString(R.string.tortilla_placky)));
+                itemList.add(new Item(R.drawable.tomato_soup, "Paradajková polievka", R.id.button, context.getString(R.string.paradajkova_polievka)));
+                itemList.add(new Item(R.drawable.langos, "Langoš", R.id.button, context.getString(R.string.langos)));
+
                 break;
             case "dezerty":
                 itemList.add(new Item(R.drawable.palacinky, "Palacinky", R.id.button, context.getString(R.string.palacinky)));
@@ -56,6 +67,8 @@ public class AdjustList {
                 itemList.add(new Item(R.drawable.baklava, "Baklava", R.id.button, context.getString(R.string.baklava)));
                 itemList.add(new Item(R.drawable.tiramisu, "Tiramisu", R.id.button, context.getString(R.string.tiramisu)));
                 itemList.add(new Item(R.drawable.moravske_kolace, "Moravské koláče", R.id.button, context.getString(R.string.moravske_kolace)));
+                itemList.add(new Item(R.drawable.wafle, "Wafle", R.id.button, context.getString(R.string.wafle)));
+                itemList.add(new Item(R.drawable.san_sebastian, "San Sebastian", R.id.button, context.getString(R.string.san_sebastian)));
                 break;
             case "obľúbené":
                 // Create a new list for liked items

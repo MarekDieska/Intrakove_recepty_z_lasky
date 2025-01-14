@@ -32,4 +32,8 @@ public class ThemeManager {
         editor.putBoolean("isDarkTheme", isDark);
         editor.apply();
     }
+
+    public boolean isDarkThemeEnabled() {
+        return sharedPreferences.getBoolean("isDarkTheme", false);
+    }
 }

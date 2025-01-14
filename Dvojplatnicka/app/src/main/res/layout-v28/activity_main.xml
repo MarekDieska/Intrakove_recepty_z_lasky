@@ -148,7 +148,7 @@
         android:id="@+id/shoppingListGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="5"
+        android:columnCount="3"
         android:rowCount="1"
         android:gravity="center"
         android:layout_centerHorizontal="true"
@@ -204,17 +204,17 @@
         android:src="@drawable/like_button"
         android:text="" />
 
-    <Button
+    <ImageButton
         android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Späť"
-        android:textSize="18dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:onClick="handleBackButtonClick" />
+        android:onClick="handleBackButtonClick"
+        android:src="@drawable/back_button"
+        android:scaleType="fitCenter"
+        style="?android:attr/borderlessButtonStyle"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -223,6 +223,18 @@
         android:id="@+id/settings_menu"
         android:layout_marginTop="?attr/actionBarSize"
         android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginBottom="18dp"
+            android:text="Hlasitosť zvuku:"
+            android:gravity="center"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintBottom_toTopOf="@id/sound_bar">
+
+        </TextView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -250,12 +262,23 @@
 
         </SeekBar>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Veľkosť textu:"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/fontsize_picker"
+            tools:ignore="MissingConstraints">
+
+        </TextView>
+
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="120dp"
             android:id="@+id/fontsize_picker"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="50dp"
             android:solidColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="@id/sound_bar"
             app:layout_constraintEnd_toEndOf="@id/sound_bar"
@@ -266,13 +289,133 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="100dp"
             android:text="✑"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toStartOf="@id/fontsize_picker"
             app:layout_constraintBottom_toTopOf="@id/sound_bar">
 
         </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toTopOf="@id/fontsize_picker">
+
+            <!-- Text above radio buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintBottom_toTopOf="@id/fontsize_picker">
+
+                <!-- Text above radio buttons -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="200dp"
+                    android:text="Rozmestnenie receptov:"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:rowCount="1"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center">
+
+                    <!-- Image 1 -->
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/twoxtwo"
+                        android:contentDescription="Image 1"
+                        android:scaleType="centerCrop"/>
+
+                    <!-- Image 2 -->
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/threexthree"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:contentDescription="Image 2"
+                        android:scaleType="centerCrop"/>
+
+                    <!-- Image 3 -->
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/fourxfour"
+                        android:contentDescription="Image 3"
+                        android:scaleType="centerCrop"/>
+
+                </GridLayout>
+
+                <!-- RadioGroup with horizontal orientation -->
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+
+                    <!-- First option -->
+                    <RadioButton
+                        android:id="@+id/radio_option_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="             " />
+
+                    <!-- Second option -->
+                    <RadioButton
+                        android:id="@+id/radio_option_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="             " />
+
+                    <!-- Third option -->
+                    <RadioButton
+                        android:id="@+id/radio_option_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Tmavý/Svetlý mód:">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="☽"
+                app:layout_constraintTop_toTopOf="@id/theme_switch"
+                app:layout_constraintEnd_toStartOf="@id/theme_switch"
+                tools:ignore="NotSibling">
+
+            </TextView>
 
             <Switch
                 android:layout_width="wrap_content"
@@ -282,56 +425,12 @@
                 android:thumbTint="?attr/colorPrimaryVariant"
                 android:trackTint="?attr/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@id/radioGroup"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="UseSwitchCompatOrMaterialXml">
             </Switch>
 
+        </LinearLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="☽"
-            app:layout_constraintTop_toTopOf="@id/theme_switch"
-            app:layout_constraintEnd_toStartOf="@id/theme_switch"
-            tools:ignore="NotSibling">
-
-        </TextView>
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toTopOf="@id/fontsize_picker">
-
-            <!-- First option -->
-            <RadioButton
-                android:id="@+id/radio_option_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="2x2" />
-
-            <!-- Second option -->
-            <RadioButton
-                android:id="@+id/radio_option_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="3x3" />
-
-            <!-- Third option -->
-            <RadioButton
-                android:id="@+id/radio_option_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="4x4" />
-
-        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -348,8 +447,8 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/android:textColor"
             android:textColorHint="?attr/android:textColor"
-            android:hint="Tu si môžeš písať svoj nákupný zoznam"
-            app:layout_constraintTop_toTopOf="@id/shopping_menu">
+            android:layout_marginTop="48dp"
+            android:hint="Tu si môžeš písať svoj nákupný zoznam">
 
         </EditText>
 
