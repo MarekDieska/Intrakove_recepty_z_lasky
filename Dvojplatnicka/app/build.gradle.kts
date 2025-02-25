@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.dvojplatnicka"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.dvojplatnicka"
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.material.v190)
     implementation(libs.exoplayer.v2190)
     implementation(libs.androidx.ui.test.desktop)
+    implementation(libs.androidx.work.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit.v121)
     androidTestImplementation(libs.androidx.espresso.core.v361)

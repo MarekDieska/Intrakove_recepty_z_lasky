@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private Button confirmButton;
     private Button shoppingListButton;
     private Button removeButton;
+    private Button goToPet;
     private EditText shoppingEditText;
 
     private ImageButton buttonBack;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
     private TextView recipeText, menuText;
     private RecyclerView recyclerView;
     private ConstraintLayout settingsMenu;
-    private RelativeLayout mainView;
+    private FrameLayout mainView;
     private Switch themeSwitch;
     private RelativeLayout itemMenu;
     private ScrollView shoppingMenu;
@@ -97,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         // Initialize UI elements
         initUI();
 
+        goToPet = findViewById(R.id.petButton);
+        goToPet.setOnClickListener(view -> openPetFragment());
+
         int spacing = 10;
         int staticMargin = 10;
 
@@ -121,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             handleSpanChange(checkedId, spacing, staticMargin);
         });
+    }
+
+    private void openPetFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.mainView, new PetFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void saveSelectedOption(int selectedOptionId) {
@@ -199,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         mainView.setVisibility(View.VISIBLE);
         shoppingMenu.setVisibility(View.GONE);
         Toast.makeText(this, "list uložený", Toast.LENGTH_SHORT).show();
+        menuText.setText("Menu");
     }
 
     public void shoppingListClick(View view) {
@@ -222,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnItemCli
         mainView.setVisibility(View.VISIBLE);
         shoppingMenu.setVisibility(View.GONE);
         Toast.makeText(this, "list vymazaný", Toast.LENGTH_SHORT).show();
+        menuText.setText("Menu");
     }
 
     private void setupClickListeners() {
