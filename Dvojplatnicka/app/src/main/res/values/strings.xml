@@ -44,5 +44,8 @@
     <string name="surimi_cestoviny">1 balík krabích tyčiniek\n 1 konzerva miešanej zeleniny (najmä kukurica a hrášok)\n 250 ml majonézy\n 500 g sušených cestovín (ideálne vrtuľky)\n soľ, podľa potreby\n biele korenie\n šťava z polky citróna\n\n1\nKrabie tyčinky odbalíme a nakrájame na rovnomerné kúsky.\n\n 2\nPridáme zeleninu z konzervy.\n\n 3\nNasleduje majonéza, soľ, biele korenie a citrónová šťava.\n\n 4\nPridáme uvarené cestoviny; len pozor, až po vychladnutí. Dôsledne všetko spolu premiešame.</string>
     <string name="rostenka">600 g bravčová roštenka\n 1 ks biela cibuľa\n trochuv hladká múka\n trochu olej\n podľa chuti soľ\n podľa chuti mleté čierne korenie\n podľa chuti worchesterská omáčka\n podľa chuti horčica\n trochu maslo čerstvé\n\n1\nRoštenku umyjeme, narežeme na plátky. Osolíme, okoreníme mletým čiernym korením. Každý plátok pokvapkáme worčestrovou omáčkou, potrieme horčicou a olejom a necháme v chlade chvíľu odležať.\n\n2\nPripravené rezne zaprášime múkou a na cibuľke opražíme. Podlejeme vodou,alebo bujónom, pridáme trochu masla a dusíme do mäkka.Podávame s ryžou.</string>
     <string name="penguin_pet">penguin_pet</string>
+    <string name="add_recipe">Recept pridaný</string>
+    <string name="edit_recipe">Úprava receptu</string>
+    <string name="delete_recipe">Odstránenie receptu</string>
 </resources>
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search..."
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_view"
+        android:padding="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/fab_dessert"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_clear_filter"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_dessert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/fab_main_course"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_dessert"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/fab_starter"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_main_course"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_starter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/fab_add"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_starter"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="Filter recipes"
+            app:srcCompat="@drawable/ic_menu"
+            app:tint="@android:color/white"
+            app:backgroundTint="@color/purple_500" />
+    </RelativeLayout>
+</RelativeLayout>

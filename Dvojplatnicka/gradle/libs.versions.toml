@@ -3,6 +3,7 @@ agp = "8.5.0"
 androidxJunit = "1.2.1"
 appcompatVersion = "1.7.0"
 coreKtxVersion = "1.13.1"
+coroutinesVersion = "1.7.3"
 espressoCoreVersion = "3.6.1"
 exoplayer = "2.19.1"
 exoplayerVersion = "2.19.1"
@@ -15,11 +16,20 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
 kotlinGradlePlugin = "1.8.0"
+kotlinGradlePluginVersion = "1.9.20"
+lifecycleLivedataKtx = "2.9.3"
+lifecycleVersion = "2.6.2"
+lifecycleViewmodelKtx = "2.9.3"
 material = "1.10.0"
 materialVersion = "1.12.0"
+roomVersion = "2.5.0"
 uiTestAndroid = "1.6.8"
 uiTestDesktop = "1.6.8"
 workRuntime = "2.10.0"
+roomCommonJvm = "2.7.2"
+adapters = "3.2.0-alpha11"
+databindingAdapters = "8.12.2"
+lifecycleViewmodelAndroid = "2.9.3"
 
 [libraries]
 androidx-appcompat-v170 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
@@ -28,6 +38,13 @@ androidx-core-ktx-v1131 = { module = "androidx.core:core-ktx", version.ref = "co
 androidx-espresso-core-v361 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version.ref = "graphicsShapes" }
 androidx-junit-v121 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleVersion" }
+androidx-lifecycle-livedata-ktx-v293 = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
+androidx-lifecycle-viewmodel-ktx-v293 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
 exoplayer-v2190 = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayerVersion" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
@@ -36,11 +53,17 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
+kotlin-gradle-plugin-v1920 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePluginVersion" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "uiTestAndroid" }
 androidx-ui-test-desktop = { group = "androidx.compose.ui", name = "ui-test-desktop", version.ref = "uiTestDesktop" }
 material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 androidx-work-runtime = { group = "androidx.work", name = "work-runtime", version.ref = "workRuntime" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
+androidx-adapters = { group = "androidx.databinding", name = "adapters", version.ref = "adapters" }
+androidx-databinding-adapters = { group = "androidx.databinding", name = "databinding-adapters", version.ref = "databindingAdapters" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

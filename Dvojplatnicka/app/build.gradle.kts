@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.13"
 }
 
 android {
@@ -10,15 +11,15 @@ android {
     defaultConfig {
         applicationId = "com.example.dvojplatnicka"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    viewBinding {
-        enable = true
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -36,20 +37,36 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(17)
     }
+
     buildToolsVersion = "35.0.0"
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx.v1131)
-    implementation(libs.androidx.appcompat.v170)
-    implementation(libs.material.v190)
-    implementation(libs.exoplayer.v2190)
-    implementation(libs.androidx.ui.test.desktop)
+    // AndroidX Core and UI
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+
+    // ExoPlayer
+    implementation(libs.exoplayer)
+
+    // WorkManager
     implementation(libs.androidx.work.runtime)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Testing
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit.v121)
-    androidTestImplementation(libs.androidx.espresso.core.v361)
 }
